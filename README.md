@@ -17,4 +17,5 @@ En la terminal de Powershell instalar Node.js y npm, visitar la siguiente liga [
 ---
 
 ### Consideraciones del proyecto
+
 Dentro del repositorio van a existir dos ramas (main, develop) donde en la rama develop vamos a trabajar de forma continua y subiendo commits cuando una funcionalidad este lista para subirse. La rama main solo va a utilizarse para versiones finales del proyecto.
