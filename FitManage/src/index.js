@@ -2,6 +2,7 @@ import express from 'express'
 import {dirname, join} from 'path'
 import {fileURLToPath} from 'url'
 import indexRouters from './routes/index.js'
+import db from './database/conexion.js'
 
 const app = express();
 
