@@ -3,6 +3,7 @@ import {dirname, join} from 'path'
 import {fileURLToPath} from 'url'
 import indexRouters from './routes/index.js'
 import db from './database/conexion.js'
+import UsersRoutes from './routes/UsersRoutes.js'
 
 const app = express();
 
