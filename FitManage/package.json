@@ -13,6 +13,7 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "fitmanage": "file:",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.4"
