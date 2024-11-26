@@ -12,20 +12,22 @@ class ControlLogin{
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
-    
+
             if (rows.length > 0) {
                 const user = rows[0];
-    
-                // Guardar datos del usuario en la sesión
-                req.session.user = {
-                    email: user.email,
-                    type_user: user.type_user,
-                    name: user.name,
-                };
-                
-            // Redireccionar al cliente a la interfaz correspondiente
-            const redirectPath = this.getInterface(user.type_user);
-            return res.redirect(redirectPath); 
+                // Validacion de password
+                if (user.password === password) {
+                    // Guardar datos del usuario en la sesión
+                    req.session.user = {
+                        email: user.email,
+                        password: user.password,
+                        type_user: user.type_user,
+                    };
+                    // Redireccionar
+                    const redirectPath = this.getInterface(user.type_user);
+                    return res.redirect(redirectPath);
+                } else {return res.status(401).json({ error: "Password Incorrecto" });}
+                 
             } else {
                 return res.status(404).json({ error: "Usuario no encontrado." });
             }
