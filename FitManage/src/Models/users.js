@@ -1,6 +1,6 @@
 import db from '../database/conexion.js';
 
-class usersModel{
+class users{
 
     constructor(){
 
@@ -26,4 +26,4 @@ class usersModel{
 }
 
 
-export default new usersModel();
+export default new users();

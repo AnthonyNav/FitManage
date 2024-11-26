@@ -35,7 +35,7 @@ router.get('/alumno',
     }
  );
 
-router.get('/login', (req, res) => res.render("login"));
+router.get('/login', (req, res) => res.render("login", { error: ""}));
 
 router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
 
