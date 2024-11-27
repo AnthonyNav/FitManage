@@ -1,0 +1,169 @@
+/* Configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #081B29, #16344C);
+    /* Tonos azul oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #FFFFFF;
+    /* Texto blanco */
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #0F2A3D;
+    /* Fondo azul oscuro para el formulario */
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    /* Sombra */
+    border: 1px solid #20445E;
+    /* Borde más claro */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #4FC3F7;
+    /* Azul celeste para el título */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header p {
+    color: #B0C7D1;
+    /* Gris claro */
+    font-size: 16px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 10px);
+}
+
+.form-row label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #B0C7D1;
+    /* Texto gris claro */
+}
+
+.form-row input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #20445E;
+    /* Borde azul claro */
+    border-radius: 5px;
+    background-color: #16344C;
+    /* Fondo azul medio */
+    color: #FFFFFF;
+    /* Texto blanco */
+}
+
+.form-row input::placeholder {
+    color: #8AA0B2;
+    /* Placeholder gris claro */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4FC3F7;
+    /* Botón azul claro */
+    color: #081B29;
+    /* Texto azul oscuro */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3BAFDA;
+    /* Azul más intenso al pasar el cursor */
+}
+
+/* Estilos para el bloque de botones de opción */
+/* Contenedor de los interruptores */
+/* Contenedor de los botones */
+.toggle-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 0; /* Sin espacio entre botones */
+    margin-top: 10px;
+}
+
+/* Estilo base para cada botón */
+.toggle-option {
+    position: relative;
+    width: 120px;
+    height: 50px;
+    background-color: #16344C;
+    /* Fondo azul medio */
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0; /* Sin márgenes */
+    padding: 0; /* Sin relleno */
+}
+
+/* Ocultar los inputs tipo radio */
+.toggle-option input {
+    display: none;
+}
+
+/* Cambios visuales al seleccionar */
+.toggle-option input:checked + span {
+    background-color: #4FC3F7;
+    color: #081B29;
+    box-shadow: 0 0 15px #4FC3F7;
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Cambios visuales al pasar el cursor */
+.toggle-option:hover {
+    background-color: #20445E;
+    transform: scale(1.05);
+}
+
+
+form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #20445E;
+    border-radius: 5px;
+    background-color: #16344C;
+    color: #FFFFFF;
+}

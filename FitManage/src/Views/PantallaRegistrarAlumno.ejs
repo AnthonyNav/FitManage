@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Administrador</title>
+    <link rel="stylesheet" href="/CSS/RegistrarAlumno.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>ADMINISTRADOR</h1>
+            <p>Ingrese los siguientes datos:</p>
+        </header>
+        <form action="/registrar-alumno"  method="POST">
+            <div class="form-row">
+                <label>Nombre</label>
+                <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
+            </div>
+            <div class="form-row">
+                <label>Apellidos</label>
+                <input type="text" name="apellidos" placeholder="Ingrese sus apellidos" required>
+            </div>
+            <div class="form-row">
+                <label>Edad</label>
+                <input type="number" name="edad" placeholder="Ingrese su edad" required>
+            </div>
+            <div class="form-row">
+                <label>Domicilio</label>
+                <input type="text" name="domicilio" placeholder="Ingrese su domicilio" required>
+            </div>
+            <div class="form-row">
+                <label>Peso</label>
+                <input type="text" name="peso" placeholder="Ejemplo: 70kg" required>
+            </div>
+            <div class="form-row">
+                <label>Altura</label>
+                <input type="text" name="estatura" placeholder="Ejemplo: 1.75m" required>
+            </div>
+            <div class="form-row">
+                <label>Número de contacto</label>
+                <input type="text" name="telefono" placeholder="Ingrese su número" required>
+            </div>
+            <div class="form-row">
+                <label>Aspiraciones (disciplinas)</label>
+                <input type="text" name="aspiraciones" placeholder="Ejemplo: Fútbol, natación" required>
+            </div>
+            <div class="form-row">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Ingrese su email" required>
+            </div>
+            <div class="form-row">
+                <label>Fecha de nacimiento</label>
+                <input type="date" name="fecha_nacimiento" required>
+            </div>
+            <div class="form-row">
+                <label>Lugar de nacimiento</label>
+                <input type="text" name="lugar_nacimiento" placeholder="Ejemplo: puebla" required>
+            </div>
+            <div class="form-row">
+                <label>Si padece alguna condición de salud</label>
+                <input type="text" name="problemas_salud" placeholder="Ingrese detalles" required>
+            </div>
+            <div class="form-row">
+                <label>Certificado médico</label>
+                <input type="text" name="certificado_medico" placeholder="" required>
+            </div>
+            <div class="form-row">
+                <label>Deslinde</label>
+                <input type="text" name="formato_firmado" placeholder="" required>
+            </div>
+            <div class="form-row es-estudiante">
+                <label>¿Es estudiante?</label>
+                <div class="toggle-group">
+                    <label class="toggle-option">
+                        <input type="radio" name="estudiante" value="si" required>
+                        <span>Sí</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="radio" name="estudiante" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit">Registrar Alumno</button>
+        </form>
+        
+    </div>
+</body>
+
+</html>

@@ -1,11 +1,16 @@
 import { Router } from "express"
 import ControlLogin from "../Controllers/ControlLogin.js";
+import ControlRegistrarAlumno from "../Controllers/ControlRegistrarAlumno.js";
 
 const router = Router();
 
 router.get('/', (req, res) => res.render("index"));
 
-router.get('/administrador', 
+router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
+router.get('/registrar-estudiante', (req, res) => res.render("registroEstudiante"));
+
+
+router.get('/administrador',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'administrador') {
             res.render("administrador");
@@ -15,7 +20,7 @@ router.get('/administrador',
     }
 );
 
-router.get('/profesor', 
+router.get('/profesor',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'profesor') {
             res.render("profesor");
@@ -25,7 +30,7 @@ router.get('/profesor',
     }
 );
 
-router.get('/alumno', 
+router.get('/alumno',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'alumno') {
             res.render("alumno");
@@ -33,10 +38,14 @@ router.get('/alumno',
             res.status(403).json({ error: "Acceso denegado. No tienes permisos para esta página." });
         }
     }
- );
+);
 
-router.get('/login', (req, res) => res.render("login", { error: ""}));
+router.get('/login', (req, res) => res.render("login", { error: "" }));
 
 router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
+
+router.post('/registrar-alumno', (req, res) => ControlRegistrarAlumno.handleRegistrarAlumno(req, res));
+router.post('/registrar-estudiante', (req, res) => ControlRegistrarAlumno.handleRegistrarEstudiante(req, res));
+
 
 export default router
