@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Datos del Alumno</title>
+    <link rel="stylesheet" href="/CSS/RegistrarAlumno.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Actualizar Datos del Alumno</h1>
+            <p>Actualice los siguientes datos:</p>
+        </header>
+        <form action="/actualizar-alumno" method="POST">
+            <!-- Campo oculto para el ID del alumno -->
+            <input type="hidden" name="id_alumno" value="<%= alumno.id_alumno %>">
+
+            <div class="form-row">
+                <label>Nombre</label>
+                <input type="text" name="nombre" value="<%= alumno.nombre %>" required>
+            </div>
+            <div class="form-row">
+                <label>Apellidos</label>
+                <input type="text" name="apellidos" value="<%= alumno.apellidos %>" required>
+            </div>
+            <div class="form-row">
+                <label>Edad</label>
+                <input type="number" name="edad" value="<%= alumno.edad %>" required>
+            </div>
+            <div class="form-row">
+                <label>Domicilio</label>
+                <input type="text" name="domicilio" value="<%= alumno.domicilio %>" required>
+            </div>
+            <div class="form-row">
+                <label>Peso</label>
+                <input type="text" name="peso" value="<%= alumno.peso %>" required>
+            </div>
+            <div class="form-row">
+                <label>Altura</label>
+                <input type="text" name="estatura" value="<%= alumno.estatura %>" required>
+            </div>
+            <div class="form-row">
+                <label>Número de contacto</label>
+                <input type="text" name="telefono" value="<%= alumno.telefono %>" required>
+            </div>
+            <div class="form-row">
+                <label>Aspiraciones (disciplinas)</label>
+                <input type="text" name="aspiraciones" value="<%= alumno.aspiraciones %>" required>
+            </div>
+            <div class="form-row">
+                <label>Email</label>
+                <input type="email" name="email" value="<%= alumno.email %>" required>
+            </div>
+            <div class="form-row">
+                <label>Fecha de nacimiento</label>
+                <input type="date" name="fecha_nacimiento" value="<%= alumno.fecha_nacimiento.toISOString().split('T')[0] %>" required>
+            </div>
+            <div class="form-row">
+                <label>Lugar de nacimiento</label>
+                <input type="text" name="lugar_nacimiento" value="<%= alumno.lugar_nacimiento %>" required>
+            </div>
+            <div class="form-row">
+                <label>Si padece alguna condición de salud</label>
+                <input type="text" name="problemas_salud" value="<%= alumno.problemas_salud %>" required>
+            </div>
+            <div class="form-row">
+                <label>Certificado médico</label>
+                <input type="text" name="certificado_medico" value="<%= alumno.certificado_medico %>" required>
+            </div>
+            <div class="form-row">
+                <label>Deslinde</label>
+                <input type="text" name="formato_firmado" value="<%= alumno.formato_firmado %>" required>
+            </div>
+            <div class="form-row es-estudiante">
+                <label>¿Es estudiante?</label>
+                <div class="toggle-group">
+                    <label class="toggle-option">
+                        <input type="radio" name="estudiante" value="si" <%= alumno.estudiante === 'Sí' ? 'checked' : '' %> required>
+                        <span>Sí</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="radio" name="estudiante" value="no" <%= alumno.estudiante === 'No' ? 'checked' : '' %>>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit">Actualizar Datos Alumno</button>
+        </form>
+    </div>
+</body>
+
+</html>

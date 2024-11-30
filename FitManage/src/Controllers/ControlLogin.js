@@ -1,6 +1,6 @@
 import usersModel from '../Models/users.js'
-class ControlLogin{
-    constructor(){}
+class ControlLogin {
+    constructor() { }
     handleLogin = (req, res) => {
         const { email, password } = req.body;
         // Validar la entrada de datos
@@ -15,7 +15,7 @@ class ControlLogin{
 
             if (rows.length > 0) {
                 const user = rows[0];
-                if(user.active == 1){
+                if (user.active == 1) {
                     // Validacion de password
                     if (user.password === password) {
                         // Guardar datos del usuario en la sesión
@@ -26,9 +26,9 @@ class ControlLogin{
                         // Redireccionar
                         const redirectPath = this.getInterface(user.type_user);
                         return res.redirect(redirectPath);
-                    } else {return res.render('login', { error: "Las credenciales son incorrectas." });}
-                } else {return res.render('login', { error: "El usuario esta dado de baja" });}
-                 
+                    } else { return res.render('login', { error: "Las credenciales son incorrectas." }); }
+                } else { return res.render('login', { error: "El usuario esta dado de baja" }); }
+
             } else {
                 return res.render('login', { error: "Las credenciales son incorrectas." });
             }

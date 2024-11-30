@@ -2,15 +2,19 @@ import { Router } from "express"
 import ControlLogin from "../Controllers/ControlLogin.js";
 import ControlRegistrarAlumno from "../Controllers/ControlRegistrarAlumno.js";
 import ControlRegistrarProfesor from "../Controllers/ControlRegistrarProfesor.js";
+import ControlActualizarAlumno from "../Controllers/ControlActualizarAlumno.js";
 
 const router = Router();
 
 router.get('/', (req, res) => res.render("index"));
 
+
 router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
 router.get('/registrar-estudiante', (req, res) => res.render("registroEstudiante"));
 // router.get('/registrar-profesor', (req, res) => res.render("PantallaRegistrarProfesor"));
-router.get("/registrar-profesor", (req, res) => 
+router.get('/actualizar-alumno', (req, res) => res.render("ActualizarAlumno"));
+router.get('/actualizar-estudiante', (req, res) => res.render("ActualizarEstudiante"));
+router.get("/registrar-profesor", (req, res) =>
     ControlRegistrarProfesor.renderPaginaRegistrarProfesor(req, res));
 
 
@@ -53,6 +57,13 @@ router.post('/registrar-estudiante', (req, res) => ControlRegistrarAlumno.handle
 
 router.get('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleDisciplinas(req, res));
 router.post('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleRegistrarProfesor(req, res));
+
+router.get('/actualizar', (req, res) => ControlActualizarAlumno.renderPantallaActualizar(req, res));
+router.post('/actualizar', (req, res) => ControlActualizarAlumno.handleSeleccionarAlumno(req, res));
+router.post('/actualizar-alumno', (req, res) => ControlActualizarAlumno.handleActualizarAlumno(req, res));
+
+router.post('/actualizar-estudiante', (req, res) => ControlActualizarAlumno.handleActualizarEstudiante(req, res));
+
 
 
 

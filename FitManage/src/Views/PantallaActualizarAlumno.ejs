@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos Activos</title>
+    <link rel="stylesheet" href="/CSS/ActualizarAlumno.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">ALUMNOS REGISTRADOS</h1>
+
+        <div class="block-grid">
+            <% alumnos.forEach(alumno => { %>
+                <!-- Cada bloque es un formulario -->
+                <form action="/actualizar" method="POST" class="block">
+                    <input type="hidden" name="nombre" value="<%= alumno.nombre %>">
+                    <button type="submit" class="block-content">
+                        <h2 class="name"><%= alumno.nombre %></h2>
+                        <p class="status <%= alumno.estatus.toLowerCase() %>"><%= alumno.estatus %></p>
+                    </button>
+                </form>
+            <% }) %>
+        </div>
+    </div>
+</body>
+
+</html>
