@@ -5,9 +5,7 @@ class users{
     constructor(){
 
     }
-
     buscarEmail(email, callback) {
-        
         // Consulta para buscar el registro
         db.query(
             `SELECT * FROM users WHERE email = ? AND email LIKE '%@gmail.com'`,
@@ -21,7 +19,34 @@ class users{
                 callback(null, rows);
             }
         );
+    }
 
+    registrarUsuario(datos, callback){
+
+        // Query SQL corregido
+        const query = `
+            INSERT INTO users (
+                email, password, type_user, active
+            )
+            VALUES (?, ?, ?, ?)
+        `;
+    
+        const values = [
+            email,
+            password, 
+            type_user, 
+            active,
+        ] = datos;
+    
+        // Ejecución de la consulta
+        db.query(query, values, (err, result) => {
+            if (err) {
+                console.error("Error al guardar el usuario:", err);
+                return callback(err, null); 
+            }
+            console.log("Usuario guardado correctamente");
+            callback(null, result); 
+        });
     }
 }
 

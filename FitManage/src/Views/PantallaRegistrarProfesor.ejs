@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Administrador</title>
+    <link rel="stylesheet" href="/CSS/RegistrarProfesor.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>ADMINISTRADOR</h1>
+            <p>Ingrese los siguientes datos:</p>
+        </header>
+        <form action="/registrar-profesor"  method="POST">
+            <div class="form-row">
+                <label>Nombre</label>
+                <input type="text" name="nombre" placeholder="Ingrese su nombre completo" required>
+            </div>
+            <div class="form-row">
+                <label>Edad</label>
+                <input type="number" name="edad" placeholder="Ingrese su edad" required>
+            </div>
+            <div class="form-row">
+                <label>Número de contacto</label>
+                <input type="text" name="telefono" placeholder="Ingrese su número" required>
+            </div>
+            <div class="form-row">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Ingrese su email" required>
+            </div>
+            <div></div>
+            <label class="form-row">Disciplinas a impartir</label>  <p style="color: red; justify-content: left;"><%= error %></p> 
+            <div class="form-row">
+                <select id="disciplinas-select1" name="disciplinas1">
+                    <option value="-1">Disciplina 1</option>
+                    <% disciplinas.forEach(disciplina => { %>
+                        <option value="<%= disciplina.id_disciplina %>"><%= disciplina.nombre %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-row">
+                <select id="disciplinas-select2" name="disciplinas2" >
+                    <option value="-1">Disciplina 2</option>
+                    <% disciplinas.forEach(disciplina => { %>
+                        <option value="<%= disciplina.id_disciplina %>"><%= disciplina.nombre %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-row">
+                <select id="disciplinas-select3" name="disciplinas3" >
+                    <option value="-1">Disciplina 3</option>
+                    <% disciplinas.forEach(disciplina => { %>
+                        <option value="<%= disciplina.id_disciplina %>"><%= disciplina.nombre %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="form-row">
+                <select id="disciplinas-select4" name="disciplinas4" >
+                    <option value="-1">Disciplina 4</option>
+                    <% disciplinas.forEach(disciplina => { %>
+                        <option value="<%= disciplina.id_disciplina %>"><%= disciplina.nombre %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <button type="submit">Registrar Profesor</button>
+        </form>
+    </div>
+</body>
+
+</html>

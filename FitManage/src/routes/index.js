@@ -1,6 +1,7 @@
 import { Router } from "express"
 import ControlLogin from "../Controllers/ControlLogin.js";
 import ControlRegistrarAlumno from "../Controllers/ControlRegistrarAlumno.js";
+import ControlRegistrarProfesor from "../Controllers/ControlRegistrarProfesor.js";
 
 const router = Router();
 
@@ -8,6 +9,9 @@ router.get('/', (req, res) => res.render("index"));
 
 router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
 router.get('/registrar-estudiante', (req, res) => res.render("registroEstudiante"));
+// router.get('/registrar-profesor', (req, res) => res.render("PantallaRegistrarProfesor"));
+router.get("/registrar-profesor", (req, res) => 
+    ControlRegistrarProfesor.renderPaginaRegistrarProfesor(req, res));
 
 
 router.get('/administrador',
@@ -46,6 +50,10 @@ router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
 
 router.post('/registrar-alumno', (req, res) => ControlRegistrarAlumno.handleRegistrarAlumno(req, res));
 router.post('/registrar-estudiante', (req, res) => ControlRegistrarAlumno.handleRegistrarEstudiante(req, res));
+
+router.get('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleDisciplinas(req, res));
+router.post('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleRegistrarProfesor(req, res));
+
 
 
 export default router
