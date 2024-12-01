@@ -171,6 +171,17 @@ class alumno {
         });
     }
 
+    getAlumnos(callback) {
+        const query = "SELECT * FROM alumnos";
+        db.query(query, (err, rows) => {
+            if (err) {
+                console.error("Error al obtener los alumnos:", err);
+                return callback(err, null);
+            }
+            callback(null, rows);
+        });
+    }
+
 
 
 

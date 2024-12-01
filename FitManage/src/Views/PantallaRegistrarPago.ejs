@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Administrador</title>
+    <link rel="stylesheet" href="/CSS/RegistrarPago.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ADMINISTRADOR</h1>
+        </header>
+        <form action="/registrar-pago/pago" method="POST">
+           <div class="form-row" > <h3>DATOS DEL ALUMNO</h3></div> <div></div>
+            <div class="form-row">
+                <input type="hidden" name="id_alumno" value="<%= student.id_alumno %>">
+                <input type="hidden" name="nombre" value="<%= student.nombre %>">
+                <input type="hidden" name="email" value="<%= student.email %>">
+                <label class="subtitle">NOMBRE: </label>
+                <div class="camp"><label><%= student.nombre %></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">EMAIL: </label>
+                <div class="camp"><label><%= student.email %></label></div>
+            </div>
+            <div class="form-row">
+                <p style="color: red; justify-content: left; margin: auto; font-size: 16px;"><%= error %></p>
+                <select id="paquete_select" name="id_paquete" >
+                    <option value="-1">Seleccione un paquete</option>
+                    <% paquetes.forEach(paquete => { %>
+                        <option 
+                            value="<%= paquete.id_paquete %>" 
+                            data-nombre="<%= paquete.nombre %>"
+                            data-descripcion="<%= paquete.descripcion %>"
+                            data-duracion="<%= paquete.duracion_dias %> días"
+                            data-reservas="<%= paquete.reservas %> reservas"
+                            data-costo="<%= paquete.costo %> MXN ">
+                            <%= paquete.nombre %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div></div>
+            <div class="form-row"><h3>DATOS DEL PAQUETE</h3></div><div></div>
+            <div class="form-row">
+                <label class="subtitle">PAQUETE:</label>
+                <div class="camp"><label id="paquete_nombre"></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">DESCRIPCION:</label> 
+                <div class="camp"><label id="paquete_descripcion"></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">VIGENCIA:</label> 
+                <div class="camp"><label id="paquete_duracion"></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">RESERVAS:</label> 
+                <div class="camp"><label id="paquete_reservas"></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">COSTO:</label> 
+                <div class="camp"><label id="paquete_costo"></label></div>
+            </div>
+            <div></div>
+            <button type="submit">Registrar Pago</button>
+        </form>
+    </div>
+
+    <script>
+        // Obtenemos los elementos
+        const paqueteSelect = document.getElementById('paquete_select');
+        const paqueteNombre = document.getElementById('paquete_nombre');
+        const paqueteDescripcion = document.getElementById('paquete_descripcion');
+        const paqueteDuracion = document.getElementById('paquete_duracion');
+        const paqueteReservas = document.getElementById('paquete_reservas');
+        const paqueteCosto = document.getElementById('paquete_costo');
+
+        // Agregamos un evento 'change' al select
+        paqueteSelect.addEventListener('change', () => {
+            // Obtenemos la opción seleccionada
+            const selectedOption = paqueteSelect.options[paqueteSelect.selectedIndex];
+
+            // Extraemos los datos del paquete
+            const nombre = selectedOption.getAttribute('data-nombre') || '';
+            const descripcion = selectedOption.getAttribute('data-descripcion') || '';
+            const duracion = selectedOption.getAttribute('data-duracion') || '';
+            const reservas = selectedOption.getAttribute('data-reservas') || '';
+            const costo = selectedOption.getAttribute('data-costo') || '';
+
+            // Actualizamos los campos
+            paqueteNombre.textContent = nombre;
+            paqueteDescripcion.textContent = descripcion;
+            paqueteDuracion.textContent = duracion;
+            paqueteReservas.textContent = reservas;
+            paqueteCosto.textContent = costo;
+        });
+    </script>
+</body>
+</html>
+
+
+
+

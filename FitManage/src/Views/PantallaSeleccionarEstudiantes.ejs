@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Estudiantes</title>
-    <link rel="stylesheet" href="/CSS/RegistrarPago.css">
+    <link rel="stylesheet" href="/CSS/SeleccionarAlumno.css">
 </head>
 <body>
     <div class="container">
         <h1>Lista de Estudiantes</h1>
+        <p style="color: red;" class="footer"><%= error %></p>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Buscar estudiantes... (Por Nombre)">
         </div>
-        <form id="studentsForm" method="POST" action="/seleccionarEstudiantes">
             <table>
                 <thead>
                     <tr>
@@ -24,19 +24,20 @@
                 </thead>
                 <tbody id="studentsTable">
                     <% students.forEach(student => { %>
-                        <tr>
-                            <td class="checkboxstudent"><input class="checkboxstudent" type="checkbox" name="students" value="<%= student.id %>"></td>
-                            <td><%= student.name %></td>
-                            <td><%= student.email %></td>
-                            <td><%= student.phone %></td>
+                        <tr class="row">
+                            <form method="POST" action="/registrar-pago">
+                                <input type="hidden" name="id_alumno" value="<%= student.id_alumno %>">
+                                <input type="hidden" name="nombre" value="<%= student.nombre + ' ' + student.apellidos%>">
+                                <input type="hidden" name="email" value="<%= student.email %>">
+                                <td><button type="submit" class="row-btn"><%= student.nombre + ' ' + student.apellidos%></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.email %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.telefono %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.estatus %></button></td>
+                            </form>
                         </tr>
                     <% }) %>
                 </tbody>
             </table>
-            <div style="margin-top: 30px;">
-                <button type="submit" class="btn">Confirmar Selección</button>
-            </div>
-        </form>
     </div>
 
     <script>
