@@ -122,6 +122,7 @@ class ControlRegistrarProfesor {
             });
         }
     };
+    
 }
 
 export default new ControlRegistrarProfesor();
