@@ -1,4 +1,5 @@
 import alumno from '../Models/alumno.js'
+import users from '../Models/users.js'
 
 class ControlActualizarAlumno {
     constructor() {}
@@ -33,13 +34,26 @@ class ControlActualizarAlumno {
             }
     
             console.log('Información completa del alumno:', infoAlumno);
-            return res.render("ActualizarAlumno", { alumno: infoAlumno });
+            users.obtenerPasswordPorId(infoAlumno.id_user, (err, password) => {
+                if (err) {
+                    console.error("Error al obtener el password:", err);
+                    return res.status(500).json({
+                        error: true,
+                        mensaje: "Error al obtener el password del usuario",
+                    });
+                }
+    
+                return res.render("ActualizarAlumno", { alumno: infoAlumno, password: password });
+            });
         });
     };
 
 
     handleActualizarAlumno = (req, res) => {
-        let { id_alumno, nombre, apellidos, edad, domicilio, peso, estatura, telefono, aspiraciones, email, fecha_nacimiento, lugar_nacimiento, problemas_salud, certificado_medico, formato_firmado, estudiante } = req.body;
+        let { id_alumno, id_user, password, nombre, apellidos, edad, domicilio, peso, estatura, telefono, aspiraciones, email, fecha_nacimiento, lugar_nacimiento, problemas_salud, certificado_medico, formato_firmado, estudiante } = req.body;
+        
+        const userData = {email, password,};
+        
         if(estudiante === "si"){
             estudiante = 1;
 
@@ -65,36 +79,70 @@ class ControlActualizarAlumno {
 
             // Actualizar los datos en la base de datos
             const realizarActualizacion = (cambios) => {
-                alumno.actualizarAlumnoPorId(id_alumno, cambios, (err, resultado) => {
+
+                users.actualizarDatosPorId(id_user, userData, (err, result) => {
                     if (err) {
-                        console.error('Error al actualizar los datos del alumno:', err);
-                        return res.status(500).json({ error: 'Error al actualizar los datos del alumno.' });
-                    }
-
-                    if(estudiante === 1){
-                        
-                        alumno.obtenerDatosEstudiantePorId(id_alumno, (err, datosEstudiante) => {
-                            if (err) {
-                                console.error("Error al obtener los datos del estudiante:", err);
-                                return;
-                            }
-                        
-                            if (!datosEstudiante) {
-                                console.log("No se encontró información para el ID del alumno.");
-                                return;
-                            }
-                        
-                            // codigo
-                            return res.render("ActualizarEstudiante", { estudiante:  datosEstudiante});
+                        console.error("Error al actualizar usuario:", err);
+                        return res.status(500).json({
+                            error: true,
+                            mensaje: 'Error al actualizar los datos del usuario',
                         });
-            
-            
-                    }else{
-                        return res.status(200).json({ mensaje: 'Datos actualizados correctamente.' });
                     }
-
-                    
+        
+                    // Si no se encontraron filas afectadas, el ID no existe
+                    if (result.affectedRows === 0) {
+                        return res.status(404).json({
+                            error: true,
+                            mensaje: 'Usuario no encontrado',
+                        });
+                    }
+        
+                    // Respuesta exitosa
+                    alumno.actualizarAlumnoPorId(id_alumno, cambios, (err, resultado) => {
+                        if (err) {
+                            console.error('Error al actualizar los datos del alumno:', err);
+                            return res.status(500).json({ error: 'Error al actualizar los datos del alumno.' });
+                        }
+    
+                        if(estudiante === 1){
+                            alumno.obtenerDatosEstudiantePorId(id_alumno, (err, datosEstudiante) => {
+                                if (err) {
+                                    console.error("Error al obtener los datos del estudiante:", err);
+                                    return;
+                                }
+                            
+                                if (!datosEstudiante) {
+                                    console.log("No se encontró información para el ID del alumno.");
+    
+                                    return res.render("registroEstudiante", { email: email });
+                                }
+                            
+                                // codigo
+                                return res.render("ActualizarEstudiante", { estudiante:  datosEstudiante});
+                            });
+                
+                
+                        }else{
+    
+                            alumno.eliminarEstudiantePorId(id_alumno, (err, result) => {
+                                if (err) {
+                                    console.error('Error al eliminar estudiante:', err);
+                                    return res.status(500).json({ error: 'Error al eliminar el estudiante.' });
+                                }
+                                if (result.affectedRows === 0) {
+                                    return res.status(200).json({ mensaje: 'Datos actualizados correctamente.' });
+                                }
+                                return res.status(200).json({ mensaje: 'Datos actualizados correctamente.' });
+                            });
+    
+    
+                            
+                        }
+    
+                        
+                    });
                 });
+                
             };
 
             Object.keys(camposAComparar).forEach((campo) => {

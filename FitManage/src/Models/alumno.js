@@ -23,6 +23,7 @@ class alumno {
 
     guardarAlumno(datos, callback) {
         const {
+            id_user,
             nombre,
             apellidos,
             edad,
@@ -46,9 +47,9 @@ class alumno {
                 nombre, apellidos, edad, domicilio, peso, estatura,
                 telefono, aspiraciones, email, fecha_nacimiento,
                 lugar_nacimiento, problemas_salud, certificado_medico,
-                formato_firmado, estudiante, fecha_ingreso
+                formato_firmado, estudiante, fecha_ingreso, id_user 
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const values = [
@@ -68,6 +69,7 @@ class alumno {
             formato_firmado,
             estudiante,
             fecha_ingreso,
+            id_user,
         ];
 
         db.query(query, values, (err, result) => {
@@ -149,7 +151,7 @@ class alumno {
     obtenerInfoCompleta(nombre, callback) {
         const query = `
             SELECT 
-                id_alumno, nombre, apellidos, edad, domicilio, telefono, email, 
+                id_alumno, id_user, nombre, apellidos, edad, domicilio, telefono, email, 
                 fecha_nacimiento, lugar_nacimiento, peso, estatura, 
                 estudiante, problemas_salud, aspiraciones, 
                 formato_firmado, certificado_medico, estatus 
@@ -256,6 +258,17 @@ class alumno {
         const query = `UPDATE estudiante SET ${campos.join(', ')} WHERE id_alumno = ?`;
 
         db.query(query, valores, (err, result) => {
+            if (err) {
+                return callback(err, null); // Retorna error si ocurre
+            }
+            callback(null, result); // Retorna el resultado de la consulta
+        });
+    }
+
+    eliminarEstudiantePorId(id_alumno, callback) {
+        const query = `DELETE FROM estudiante WHERE id_alumno = ?`;
+    
+        db.query(query, [id_alumno], (err, result) => {
             if (err) {
                 return callback(err, null); // Retorna error si ocurre
             }

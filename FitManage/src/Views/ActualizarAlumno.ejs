@@ -17,7 +17,7 @@
         <form action="/actualizar-alumno" method="POST">
             <!-- Campo oculto para el ID del alumno -->
             <input type="hidden" name="id_alumno" value="<%= alumno.id_alumno %>">
-
+            <input type="hidden" name="id_user" value="<%= alumno.id_user %>">
             <div class="form-row">
                 <label>Nombre</label>
                 <input type="text" name="nombre" value="<%= alumno.nombre %>" required>
@@ -53,6 +53,10 @@
             <div class="form-row">
                 <label>Email</label>
                 <input type="email" name="email" value="<%= alumno.email %>" required>
+            </div>
+            <div class="form-row">
+                <label>Contraseña</label>
+                <input type="text" name="password" value="<%= password %>" required>
             </div>
             <div class="form-row">
                 <label>Fecha de nacimiento</label>

@@ -1,4 +1,5 @@
 import alumno from '../Models/alumno.js'
+import users from '../Models/users.js';
 
 class ControlRegistrarAlumno {
     constructor() { }
@@ -20,24 +21,27 @@ class ControlRegistrarAlumno {
             certificado_medico,
             formato_firmado,
             estudiante,
+            password,
         } = req.body;
+
+        const type_user = "alumno";
+        const active = 1;
 
         const fechaActual = new Date();
 
         const año = fechaActual.getFullYear();
-        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); 
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
         const dia = String(fechaActual.getDate()).padStart(2, '0');
 
         const fechaFormateada = `${año}-${mes}-${dia}`;
-        console.log(fechaFormateada); 
+        console.log(fechaFormateada);
 
+        var datosAlumno = req.body;
 
-
-        const datosAlumno = req.body;
         datosAlumno.fecha_ingreso = fechaFormateada;
 
-        datosAlumno.peso = parseFloat(datosAlumno.peso.replace(/[^0-9.]/g, '')); 
-        datosAlumno.estatura = parseFloat(datosAlumno.estatura.replace(/[^0-9.]/g, '')); 
+        datosAlumno.peso = parseFloat(datosAlumno.peso.replace(/[^0-9.]/g, ''));
+        datosAlumno.estatura = parseFloat(datosAlumno.estatura.replace(/[^0-9.]/g, ''));
         datosAlumno.estudiante = estudiante === 'si' ? 1 : 0;
 
 
@@ -53,7 +57,7 @@ class ControlRegistrarAlumno {
 
 
 
-            if (estudiante === "si") {
+            /* if (estudiante === "si") {
 
                 alumno.guardarAlumno(datosAlumno, (err, result) => {
                     if (err) {
@@ -78,11 +82,57 @@ class ControlRegistrarAlumno {
                     return res.status(200).send('Alumno registrado correctamente');
                 });
 
-            }
+            } */
+
+            var UserData = { email, password, type_user, active,};
+
+            delete datosAlumno.password;
+
+            users.registrarUsuario(UserData, (err, result) => {
+                if (err) {
+                    console.error("Hubo un error al registrar al usuario:", err);
+                    return;
+                }
+            
+                users.buscarIdPorEmail(datosAlumno.email, (err, id_user) => {
+                    if (err) {
+                        console.error("Error:", err.message);
+                        return res.status(200).send('Error al buscar id_user');
+                    }
+    
+                    //console.log("ID del usuario:", id_user);
+                    datosAlumno.id_user = id_user;
+    
+                    alumno.guardarAlumno(datosAlumno, (err, result) => {
+                        if (err) {
+                            console.error('Error al guardar alumno:', err);
+                            return res.status(500).send('Error interno al guardar el alumno');
+                        }
+    
+                        if (estudiante === "si") {
+                            return res.render("registroEstudiante", { email: datosAlumno.email });
+                        } else {
+                            return res.status(200).send('Alumno registrado correctamente');
+                        }
+    
+    
+                    });
+                });
+            });
+
+            
+
+
+
+
+
+
         });
 
 
     };
+
+
 
     handleRegistrarEstudiante = (req, res) => {
         const {
@@ -100,7 +150,7 @@ class ControlRegistrarAlumno {
         alumno.obtenerIdPorEmail(datosEstudiante.email, (err, idAlumno) => {
             if (err) {
                 console.error('Error al obtener el ID del alumno:', err);
-                return; 
+                return;
             }
 
             if (!idAlumno) {
