@@ -32,11 +32,11 @@ class users{
         `;
     
         const values = [
-            email,
-            password, 
-            type_user, 
-            active,
-        ] = datos;
+            datos.email,
+            datos.password,
+            datos.type_user,
+            datos.active
+        ];
     
         // Ejecución de la consulta
         db.query(query, values, (err, result) => {

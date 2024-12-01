@@ -1,4 +1,4 @@
-import usersModel from '../Models/users.js'
+import usersModel from '../Models/Users.js'
 class ControlLogin {
     constructor() { }
     handleLogin = (req, res) => {

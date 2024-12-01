@@ -25,16 +25,20 @@
             </div>
             <div class="form-row">
                 <label>Número de contacto</label>
-                <input type="text" name="telefono" placeholder="Ingrese su número" required>
+                <input type="text" name="telefono" placeholder="Ingrese su número" required pattern="\d{10,}" title="El número debe contener al menos 10 dígitos y solo números">
             </div>
             <div class="form-row">
                 <label>Email</label>
                 <input type="email" name="email" placeholder="Ingrese su email" required>
             </div>
+            <div class="form-row">
+                <label>Contraseña</label>
+                <input type="password" name="password" placeholder="Ingrese su contraseña" required minlength="8",  title="La contraseña debe tener al menos 8 caracteres">
+            </div>
             <div></div>
             <label class="form-row">Disciplinas a impartir</label>  <p style="color: red; justify-content: left;"><%= error %></p> 
             <div class="form-row">
-                <select id="disciplinas-select1" name="disciplinas1">
+                <select id="disciplinas-select1" name="disciplinas1" >
                     <option value="-1">Disciplina 1</option>
                     <% disciplinas.forEach(disciplina => { %>
                         <option value="<%= disciplina.id_disciplina %>"><%= disciplina.nombre %></option>
