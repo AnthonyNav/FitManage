@@ -12,6 +12,19 @@ class Disciplinas {
             });
         });
     }
+
+    static obtenerNombresDisciplinas() {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT nombre FROM disciplinas";
+            db.query(query, (err, rows) => {
+                if (err) {
+                    return reject(err);
+                }
+                const nombres = rows.map(row => row.nombre); // Extraemos solo los nombres
+                resolve(nombres);
+            });
+        });
+    }
 }
 
 export default Disciplinas;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Clase</title>
+    <link rel="stylesheet" href="/CSS/CrearClase.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Registrar Nueva Clase</h1>
+        </header>
+        <div class="form-card">
+            <form action="/crear-clase" method="POST">
+                <!-- Disciplina -->
+                <div class="input-group">
+                    <label for="id_disciplina">Disciplina</label>
+                    <select id="id_disciplina" name="id_disciplina" required>
+                        <option value="" disabled <%= !disciplinaSeleccionada ? 'selected' : '' %>>
+                            Seleccione una disciplina
+                        </option>
+                        <% disciplinas.forEach(d => { %>
+                            <option value="<%= d.id_disciplina %>" <%= disciplinaSeleccionada == d.id_disciplina ? 'selected' : '' %>>
+                                <%= d.nombre %>
+                            </option>
+                        <% }); %>
+                    </select>
+                </div>
+
+                <!-- Profesor -->
+                <div class="input-group">
+                    <label for="id_profesor">Profesor</label>
+                    <select id="id_profesor" name="id_profesor" required <%= !disciplinaSeleccionada ? 'disabled' : '' %>>
+                        <option value="" disabled selected>Seleccione un profesor</option>
+                        <% profesores.forEach(profesor => { %>
+                            <option value="<%= profesor.id_profesor %>">
+                                <%= profesor.nombre %>
+                            </option>
+                        <% }); %>
+                    </select>
+                </div>
+
+                <!-- Día -->
+                <div class="input-group">
+                    <label for="dia">Día</label>
+                    <select id="dia" name="dia" required>
+                        <option value="" disabled selected>Seleccione un día</option>
+                        <option value="lunes">Lunes</option>
+                        <option value="martes">Martes</option>
+                        <option value="miercoles">Miércoles</option>
+                        <option value="jueves">Jueves</option>
+                        <option value="viernes">Viernes</option>
+                        <option value="sabado">Sábado</option>
+                    </select>
+                </div>
+
+                <!-- Hora -->
+                <div class="input-group">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" name="hora" required>
+                </div>
+
+                <!-- Cupo -->
+                <div class="input-group">
+                    <label for="cupo">Cupo</label>
+                    <input type="number" id="cupo" name="cupo" placeholder="Ej: 20" min="1" required>
+                </div>
+
+                <!-- Botón -->
+                <button type="submit" class="btn" <%= !disciplinaSeleccionada ? 'disabled' : '' %>>Guardar Clase</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Manejar el cambio de disciplina con JavaScript
+        document.getElementById("id_disciplina").addEventListener("change", function () {
+            const disciplina = this.value; // Obtiene el valor seleccionado
+            if (disciplina) {
+                // Redirige a la URL con el parámetro de la disciplina seleccionada
+                window.location.href = `/crear-clase?disciplina=${disciplina}`;
+            }
+        });
+    </script>
+</body>
+
+</html>

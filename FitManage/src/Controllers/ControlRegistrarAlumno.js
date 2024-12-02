@@ -55,35 +55,6 @@ class ControlRegistrarAlumno {
                 return res.status(400).send('Ya existe un alumno registrado con este nombre o email');
             }
 
-
-
-            /* if (estudiante === "si") {
-
-                alumno.guardarAlumno(datosAlumno, (err, result) => {
-                    if (err) {
-                        console.error('Error al guardar alumno:', err);
-                        return res.status(500).send('Error interno al guardar el alumno');
-                    }
-
-                    return res.render("registroEstudiante", { email: datosAlumno.email });
-                });
-
-
-
-
-            } else {
-
-                alumno.guardarAlumno(datosAlumno, (err, result) => {
-                    if (err) {
-                        console.error('Error al guardar alumno:', err);
-                        return res.status(500).send('Error interno al guardar el alumno');
-                    }
-
-                    return res.status(200).send('Alumno registrado correctamente');
-                });
-
-            } */
-
             var UserData = { email, password, type_user, active,};
 
             delete datosAlumno.password;

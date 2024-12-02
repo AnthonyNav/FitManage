@@ -1,0 +1,150 @@
+/* General */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0d0d0d;
+    /* Fondo negro puro */
+    color: #e6e6e6;
+    /* Texto principal gris claro */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor */
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Título */
+header h1 {
+    font-size: 2.5rem;
+    color: #00b3cc;
+    /* Azul brillante para el título */
+    margin-bottom: 20px;
+}
+
+/* Tarjeta del formulario */
+.form-card {
+    background-color: #191919;
+    /* Fondo muy oscuro para la tarjeta */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    /* Sombra intensa */
+}
+
+/* Grupos de entrada */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #cccccc;
+    /* Etiqueta en gris claro */
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    background-color: #0d0d0d;
+    /* Fondo negro puro para los inputs */
+    border: 1px solid #333333;
+    border-radius: 10px;
+    color: #e6e6e6;
+    /* Texto blanco/gris claro */
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: #666666;
+    /* Placeholder gris medio */
+}
+
+input:focus {
+    border-color: #00b3cc;
+    /* Borde azul claro */
+    box-shadow: 0 0 5px rgba(0, 179, 204, 0.6);
+}
+
+/* Botón */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #00b3cc, #007399);
+    /* Degradado azul más oscuro */
+    color: #e6e6e6;
+    /* Texto gris claro */
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #009ab2, #005f73);
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(1);
+}
+
+/* Responsividad */
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .form-card {
+        padding: 20px;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+}
+
+
+select {
+    width: 100%;
+    padding: 15px;
+    background-color: #0d0d0d;
+    /* Fondo negro puro */
+    border: 1px solid #333333;
+    border-radius: 10px;
+    color: #e6e6e6;
+    /* Texto gris claro */
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+}
+
+select:focus {
+    border-color: #00b3cc;
+    /* Borde azul claro */
+    box-shadow: 0 0 5px rgba(0, 179, 204, 0.6);
+}
+
+select option {
+    background-color: #0d0d0d;
+    color: #e6e6e6;
+}

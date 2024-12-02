@@ -24,6 +24,25 @@ class Profesor_Disciplinas{
         });
     }
 
+    obtenerProfesoresPorDisciplina(id_disciplina) {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT p.id_profesor, p.nombre 
+                FROM profesor_disciplinas pd
+                INNER JOIN profesor p ON pd.id_profesor = p.id_profesor
+                WHERE pd.id_disciplina = ?
+            `;
+
+            db.query(query, [id_disciplina], (err, rows) => {
+                if (err) {
+                    console.error("Error al obtener profesores por disciplina:", err);
+                    return reject(err);
+                }
+                resolve(rows); // Retornamos los profesores encontrados
+            });
+        });
+    }
+
 }
 
 export default new Profesor_Disciplinas();
