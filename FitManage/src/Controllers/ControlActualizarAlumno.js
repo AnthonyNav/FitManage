@@ -1,5 +1,5 @@
-import alumno from '../Models/alumno.js'
-import users from '../Models/users.js'
+import alumno from '../Models/Alumno.js'
+import users from '../Models/Users.js'
 
 class ControlActualizarAlumno {
     constructor() {}

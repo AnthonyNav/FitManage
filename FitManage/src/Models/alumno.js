@@ -1,6 +1,6 @@
 import db from '../database/conexion.js';
 
-class alumno {
+class Alumno {
 
     constructor() {
 
@@ -183,13 +183,6 @@ class alumno {
     }
 
 
-
-
-
-
-
-
-
     // Obtener información completa por ID
     obtenerInfoPorId(id_alumno, callback) {
         const query = `
@@ -290,4 +283,4 @@ class alumno {
 }
 
 
-export default new alumno();
+export default new Alumno();

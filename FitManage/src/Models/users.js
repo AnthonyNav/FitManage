@@ -1,6 +1,6 @@
 import db from '../database/conexion.js';
 
-class users{
+class Users{
 
     constructor(){
 
@@ -14,7 +14,6 @@ class users{
                 if (err) {
                     return callback(err, null);
                 }
-
                 // Devuelve los resultados al controlador
                 callback(null, rows);
             }
@@ -113,4 +112,4 @@ class users{
 }
 
 
-export default new users();
+export default new Users();

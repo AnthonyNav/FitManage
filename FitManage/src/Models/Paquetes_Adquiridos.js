@@ -61,6 +61,7 @@ class PaquetesAdquiridos{
                 console.error("Error al obtener los paquetes vigentes del alumno:", err);
                 return callback(err, null);
             }
+            //console.log(results);
             callback(null, results);
         });
     }
