@@ -280,6 +280,39 @@ class Alumno {
         });
     }
 
+
+    getPaqueteVigenteByEmail(email, callback) {
+        const query = `
+            SELECT 
+                alumnos.nombre AS nombre_alumno,
+                paquetes.nombre AS nombre_paquete,
+                alumnos.apellidos,
+                alumnos.email,
+                paquetes.descripcion,
+                paquetes_adquiridos.fecha_inicio,
+                paquetes_adquiridos.fecha_fin,
+                paquetes_adquiridos.reservas_disponibles,
+                paquetes.costo
+            FROM alumnos
+            INNER JOIN paquetes_adquiridos ON alumnos.id_alumno = paquetes_adquiridos.id_alumno
+            INNER JOIN paquetes ON paquetes_adquiridos.id_paquete = paquetes.id_paquete
+            WHERE alumnos.email = ?
+            AND paquetes_adquiridos.fecha_fin >= CURDATE();
+        `;
+    
+        db.query(query, [email], (err, results) => {
+            if (err) {
+                console.error("Error al obtener el paquete vigente del alumno:", err);
+                return callback(err, null);
+            }
+            if (results.length === 0) {
+                console.log("No se encontró un paquete vigente para el alumno.");
+                return callback(null, null);
+            }
+            callback(null, results[0]); // Regresamos solo el primer paquete vigente encontrado
+        });
+    }
+
 }
 
 

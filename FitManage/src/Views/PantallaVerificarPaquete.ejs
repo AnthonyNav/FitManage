@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Administrador</title>
+    <link rel="stylesheet" href="/CSS/RegistrarPago.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VIGENCIA</h1>
+        </header>
+        <form action="/alumno" method="GET">
+            <div class="form-row">
+                <h3>DATOS DEL ALUMNO</h3>
+            </div>
+            <div></div>
+            <!-- Nombre del alumno -->
+            <div class="form-row">
+                <label class="subtitle">NOMBRE: </label>
+                <div class="camp"><label ><%= student.nombre_alumno %> <%= student.apellidos %></label></div>
+            </div>
+            
+            <!-- Email del alumno -->
+            <div class="form-row">
+                <label class="subtitle">EMAIL: </label>
+                <div class="camp"><label><%= student.email %></label></div>
+            </div>
+            
+            <!-- Mensaje de error -->
+            <% if (error) { %>
+            <div class="form-row">
+                <p style="color: red; justify-content: left; margin: auto; font-size: 16px;"><%= error %></p>
+            </div>
+            <% } %>
+            
+            <div class="form-row">
+                <h3>DATOS DEL PAQUETE</h3>
+            </div>
+            <div></div>
+            <!-- Detalles del paquete -->
+            <div class="form-row">
+                <label class="subtitle">PAQUETE:</label>
+                <div class="camp"><label><%= student.nombre_paquete %></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">DESCRIPCIÓN:</label>
+                <div class="camp"><label><%= student.descripcion %></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">VIGENCIA:</label>
+                <div class="camp"><label ><%= student.fecha_inicio %> -- <%= student.fecha_fin %></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">RESERVAS DISPONIBLES:</label>
+                <div class="camp"><label ><%= student.reservas_disponibles %></label></div>
+            </div>
+            <div class="form-row">
+                <label class="subtitle">COSTO:</label>
+                <div class="camp"><label><%= student.costo %></label></div>
+            </div>
+            <div></div>
+            <!-- Botón para registrar el pago -->
+            <button type="submit">Regresar</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
