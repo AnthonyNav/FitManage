@@ -21,6 +21,7 @@ class Alumno {
         );
     }
 
+    //*Listo
     guardarAlumno(datos, callback) {
         const {
             id_user,
@@ -38,7 +39,7 @@ class Alumno {
             problemas_salud,
             certificado_medico,
             formato_firmado,
-            estudiante,
+            type_alumno,
             fecha_ingreso, // Agregamos el nuevo campo
         } = datos;
 
@@ -47,9 +48,9 @@ class Alumno {
                 nombre, apellidos, edad, domicilio, peso, estatura,
                 telefono, aspiraciones, email, fecha_nacimiento,
                 lugar_nacimiento, problemas_salud, certificado_medico,
-                formato_firmado, estudiante, fecha_ingreso, id_user 
+                formato_firmado, type_alumno, fecha_ingreso, id_user 
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
         `;
 
         const values = [
@@ -67,7 +68,7 @@ class Alumno {
             problemas_salud,
             certificado_medico,
             formato_firmado,
-            estudiante,
+            type_alumno,
             fecha_ingreso,
             id_user,
         ];
@@ -80,34 +81,25 @@ class Alumno {
         });
     }
 
-
+    //** listo para revisar */
     guardarEstudiante(datos, callback) {
         const {
             id_alumno,
             nivel_educativo,
-            grado_estudios,
             institucion,
-            carrera,
-            lugar_trabajo,
-            puesto,
         } = datos;
 
         const query = `
             INSERT INTO estudiante (
-                id_alumno, nivel_educativo, grado_estudios, institucion,
-                carrera, lugar_trabajo, puesto
+                id_alumno, nivel_educativo, institucion
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?)
         `;
 
         const values = [
             id_alumno,
             nivel_educativo,
-            grado_estudios,
             institucion,
-            carrera,
-            lugar_trabajo,
-            puesto,
         ];
 
         db.query(query, values, (err, result) => {
@@ -137,6 +129,7 @@ class Alumno {
         });
     }
 
+    //??? Revisa el tipo de estatus
     obtenerNombresYEstatus(callback) {
         const query = `SELECT nombre, estatus FROM alumnos`;
 
@@ -148,12 +141,14 @@ class Alumno {
         });
     }
 
+
+    //** prueba */
     obtenerInfoCompleta(nombre, callback) {
         const query = `
             SELECT 
                 id_alumno, id_user, nombre, apellidos, edad, domicilio, telefono, email, 
                 fecha_nacimiento, lugar_nacimiento, peso, estatura, 
-                estudiante, problemas_salud, aspiraciones, 
+                type_alumno, problemas_salud, aspiraciones, 
                 formato_firmado, certificado_medico, estatus 
             FROM alumnos 
             WHERE nombre = ?;
@@ -166,11 +161,11 @@ class Alumno {
                 return callback(null, null); // No se encontró el alumno
             }
             const alumno = results[0];
-            alumno.estudiante = alumno.estudiante === 1 ? 'Sí' : 'No'; // Convertimos el booleano en texto
             callback(null, alumno);
         });
     }
 
+    // Antony
     getAlumnos(callback) {
         const query = "SELECT * FROM alumnos";
         db.query(query, (err, rows) => {
@@ -183,13 +178,13 @@ class Alumno {
     }
 
 
-    // Obtener información completa por ID
+    //** prueba */
     obtenerInfoPorId(id_alumno, callback) {
         const query = `
             SELECT 
                 id_alumno, nombre, apellidos, edad, domicilio, telefono, email, 
                 fecha_nacimiento, lugar_nacimiento, peso, estatura, 
-                estudiante, problemas_salud, aspiraciones, 
+                type_alumno, problemas_salud, aspiraciones, 
                 formato_firmado, certificado_medico, estatus 
             FROM alumnos 
             WHERE id_alumno = ?;
@@ -234,12 +229,31 @@ class Alumno {
         });
     }
 
+
+    //** Listo para revisar */
     obtenerDatosEstudiantePorId(id_alumno, callback) {
         const query = `
             SELECT 
-                id_alumno, nivel_educativo, institucion, carrera, 
-                lugar_trabajo, puesto, grado_estudios 
+                id_alumno, nivel_educativo, institucion
             FROM estudiante 
+            WHERE id_alumno = ?;
+        `;
+        db.query(query, [id_alumno], (err, results) => {
+            if (err) {
+                return callback(err, null); // Retorna error si ocurre
+            }
+            if (results.length === 0) {
+                return callback(null, null); // No se encontraron datos para el id_alumno
+            }
+            callback(null, results[0]); // Retorna el registro encontrado
+        });
+    }
+
+    obtenerDatosProfesionistaPorId(id_alumno, callback) {
+        const query = `
+            SELECT 
+                id_alumno, carrera, lugar_trabajo, puesto, grado_estudios
+            FROM profesionistas 
             WHERE id_alumno = ?;
         `;
         db.query(query, [id_alumno], (err, results) => {
@@ -269,6 +283,21 @@ class Alumno {
         });
     }
 
+    actualizarDatosProfesionistaPorId(id_alumno, datosProfesionista, callback) {
+        const campos = Object.keys(datosProfesionista).map((campo) => `${campo} = ?`);
+        const valores = Object.values(datosProfesionista);
+        valores.push(id_alumno);
+
+        const query = `UPDATE profesionistas SET ${campos.join(', ')} WHERE id_alumno = ?`;
+
+        db.query(query, valores, (err, result) => {
+            if (err) {
+                return callback(err, null); // Retorna error si ocurre
+            }
+            callback(null, result); // Retorna el resultado de la consulta
+        });
+    }
+
     eliminarEstudiantePorId(id_alumno, callback) {
         const query = `DELETE FROM estudiante WHERE id_alumno = ?`;
     
@@ -280,7 +309,18 @@ class Alumno {
         });
     }
 
+    eliminarProfesionistaPorId(id_alumno, callback) {
+        const query = `DELETE FROM profesionistas WHERE id_alumno = ?`;
+    
+        db.query(query, [id_alumno], (err, result) => {
+            if (err) {
+                return callback(err, null); // Retorna error si ocurre
+            }
+            callback(null, result); // Retorna el resultado de la consulta
+        });
+    }
 
+    //antony
     getPaqueteVigenteByEmail(email, callback) {
         const query = `
             SELECT 
@@ -312,6 +352,39 @@ class Alumno {
             callback(null, results[0]); // Regresamos solo el primer paquete vigente encontrado
         });
     }
+
+    guardarProfesionista(datos, callback) {
+        const {
+            id_alumno,
+            carrera,
+            lugar_trabajo,
+            puesto,
+            grado_estudios
+        } = datos;
+    
+        const query = `
+            INSERT INTO profesionistas (
+                id_alumno, carrera, lugar_trabajo, puesto, grado_estudios
+            )
+            VALUES (?, ?, ?, ?, ?)
+        `;
+    
+        const values = [
+            id_alumno,
+            carrera,
+            lugar_trabajo,
+            puesto,
+            grado_estudios
+        ];
+    
+        db.query(query, values, (err, result) => {
+            if (err) {
+                return callback(err, null); // Retorna el error al callback si ocurre
+            }
+            callback(null, result); // Retorna el resultado de la consulta
+        });
+    }
+    
 
 }
 

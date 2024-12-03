@@ -13,6 +13,8 @@ router.get('/', (req, res) => res.render("index"));
 
 router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
 router.get('/registrar-estudiante', (req, res) => res.render("registroEstudiante"));
+router.get('/registrar-profesionista', (req, res) => res.render("RegistroProfesionista"));
+router.get('/actualizar-profesionista', (req, res) => res.render("ActualizarRegistroProfesionista"));
 // router.get('/registrar-profesor', (req, res) => res.render("PantallaRegistrarProfesor"));
 router.get('/actualizar-alumno', (req, res) => res.render("ActualizarAlumno"));
 router.get('/actualizar-estudiante', (req, res) => res.render("ActualizarEstudiante"));
@@ -59,6 +61,8 @@ router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
 
 router.post('/registrar-alumno', (req, res) => ControlRegistrarAlumno.handleRegistrarAlumno(req, res));
 router.post('/registrar-estudiante', (req, res) => ControlRegistrarAlumno.handleRegistrarEstudiante(req, res));
+router.post('/registrar-profesionista', (req, res) => ControlRegistrarAlumno.handleRegistrarProfesionista(req, res));
+
 
 router.get('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleDisciplinas(req, res));
 router.post('/registrar-profesor', (req, res) => ControlRegistrarProfesor.handleRegistrarProfesor(req, res));
@@ -67,6 +71,7 @@ router.post('/actualizar', (req, res) => ControlActualizarAlumno.handleSeleccion
 router.post('/actualizar-alumno', (req, res) => ControlActualizarAlumno.handleActualizarAlumno(req, res));
 router.post('/actualizar-estudiante', (req, res) => ControlActualizarAlumno.handleActualizarEstudiante(req, res));
 
+router.post('/actualizar-profesionista', (req, res) => ControlActualizarAlumno.handleActualizarProfesionista(req, res));
 
 router.get('/crear-clase', (req, res) => ControlCrearClase.renderPantallaCrearClase(req, res));
 router.post('/crear-clase', (req, res) => ControlCrearClase.handleCrearClase(req, res));

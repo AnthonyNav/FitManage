@@ -29,34 +29,8 @@
             </div>
 
             <div class="form-row">
-                <label>Grado de estudios</label>
-                <select name="grado_estudios" required>
-                    <option value="">Seleccione su grado de estudios</option>
-                    <option value="primaria" <%= estudiante.grado_estudios === 'primaria' ? 'selected' : '' %>>Primaria</option>
-                    <option value="secundaria" <%= estudiante.grado_estudios === 'secundaria' ? 'selected' : '' %>>Secundaria</option>
-                    <option value="bachiller" <%= estudiante.grado_estudios === 'bachiller' ? 'selected' : '' %>>Bachiller</option>
-                    <option value="universidad" <%= estudiante.grado_estudios === 'universidad' ? 'selected' : '' %>>Universidad</option>
-                </select>
-            </div>
-
-            <div class="form-row">
                 <label>Institución</label>
                 <input type="text" name="institucion" placeholder="Ingrese su institución" value="<%= estudiante.institucion %>" required>
-            </div>
-
-            <div class="form-row">
-                <label>Carrera</label>
-                <input type="text" name="carrera" placeholder="Ingrese su carrera" value="<%= estudiante.carrera %>" required>
-            </div>
-
-            <div class="form-row">
-                <label>Lugar de trabajo</label>
-                <input type="text" name="lugar_trabajo" placeholder="Ingrese el lugar donde trabaja" value="<%= estudiante.lugar_trabajo %>" required>
-            </div>
-
-            <div class="form-row">
-                <label>Puesto</label>
-                <input type="text" name="puesto" placeholder="Ingrese el puesto que desempeña" value="<%= estudiante.puesto %>" required>
             </div>
             
             <button type="submit">Actualizar Estudiante</button>

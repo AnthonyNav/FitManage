@@ -78,16 +78,20 @@
                 <label>Deslinde</label>
                 <input type="text" name="formato_firmado" value="<%= alumno.formato_firmado %>" required>
             </div>
-            <div class="form-row es-estudiante">
-                <label>¿Es estudiante?</label>
+            <div class="form-row es-ocupacion">
+                <label>¿Cuál es su ocupación?</label>
                 <div class="toggle-group">
                     <label class="toggle-option">
-                        <input type="radio" name="estudiante" value="si" <%= alumno.estudiante === 'Sí' ? 'checked' : '' %> required>
-                        <span>Sí</span>
+                        <input type="radio" name="type_alumno" value="estudiante" <%= alumno.type_alumno === 'estudiante' ? 'checked' : '' %> required>
+                        <span>Estudiante</span>
                     </label>
                     <label class="toggle-option">
-                        <input type="radio" name="estudiante" value="no" <%= alumno.estudiante === 'No' ? 'checked' : '' %>>
-                        <span>No</span>
+                        <input type="radio" name="type_alumno" value="profesionista" <%= alumno.type_alumno === 'profesionista' ? 'checked' : '' %>>
+                        <span>Profesionista</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="radio" name="type_alumno" value="ninguno" <%= alumno.type_alumno === 'ninguno' ? 'checked' : '' %>>
+                        <span>Ninguno</span>
                     </label>
                 </div>
             </div>

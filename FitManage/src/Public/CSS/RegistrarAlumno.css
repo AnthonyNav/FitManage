@@ -104,33 +104,31 @@ button:hover {
 }
 
 /* Estilos para el bloque de botones de opción */
-/* Contenedor de los interruptores */
-/* Contenedor de los botones */
 .toggle-group {
     display: flex;
     justify-content: space-between;
-    gap: 0; /* Sin espacio entre botones */
+    gap: 10px; /* Espacio entre botones */
     margin-top: 10px;
 }
 
 /* Estilo base para cada botón */
 .toggle-option {
     position: relative;
-    width: 120px;
-    height: 50px;
+    width: 100px; /* Reducir el ancho */
+    height: 40px; /* Reducir la altura */
     background-color: #16344C;
     /* Fondo azul medio */
-    border-radius: 25px;
+    border-radius: 20px; /* Ajustar para mantener la forma ovalada */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px; /* Reducir el tamaño del texto */
     font-weight: bold;
     color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin: 0; /* Sin márgenes */
-    padding: 0; /* Sin relleno */
+    margin: 0;
+    padding: 0;
 }
 
 /* Ocultar los inputs tipo radio */
@@ -143,7 +141,7 @@ button:hover {
     background-color: #4FC3F7;
     color: #081B29;
     box-shadow: 0 0 15px #4FC3F7;
-    border-radius: 25px;
+    border-radius: 20px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -157,7 +155,6 @@ button:hover {
     background-color: #20445E;
     transform: scale(1.05);
 }
-
 
 form select {
     padding: 10px;

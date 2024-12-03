@@ -14,7 +14,7 @@
             <h1>ADMINISTRADOR</h1>
             <p>Ingrese los siguientes datos:</p>
         </header>
-        <form action="/registrar-alumno"  method="POST">
+        <form action="/registrar-alumno" method="POST">
             <div class="form-row">
                 <label>Nombre</label>
                 <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
@@ -61,7 +61,7 @@
             </div>
             <div class="form-row">
                 <label>Lugar de nacimiento</label>
-                <input type="text" name="lugar_nacimiento" placeholder="Ejemplo: puebla" required>
+                <input type="text" name="lugar_nacimiento" placeholder="Ejemplo: Puebla" required>
             </div>
             <div class="form-row">
                 <label>Si padece alguna condición de salud</label>
@@ -76,21 +76,24 @@
                 <input type="text" name="formato_firmado" placeholder="" required>
             </div>
             <div class="form-row es-estudiante">
-                <label>¿Es estudiante?</label>
+                <label>¿Cuál es su ocupación?</label>
                 <div class="toggle-group">
                     <label class="toggle-option">
-                        <input type="radio" name="estudiante" value="si" required>
-                        <span>Sí</span>
+                        <input type="radio" name="type_alumno" value="estudiante" required>
+                        <span>Estudiante</span>
                     </label>
                     <label class="toggle-option">
-                        <input type="radio" name="estudiante" value="no">
-                        <span>No</span>
+                        <input type="radio" name="type_alumno" value="profesionista">
+                        <span>Profesionista</span>
+                    </label>
+                    <label class="toggle-option">
+                        <input type="radio" name="type_alumno" value="ninguno">
+                        <span>Ninguno</span>
                     </label>
                 </div>
             </div>
             <button type="submit">Registrar Alumno</button>
         </form>
-        
     </div>
 </body>
 

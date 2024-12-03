@@ -20,7 +20,7 @@ class ControlRegistrarAlumno {
             problemas_salud,
             certificado_medico,
             formato_firmado,
-            estudiante,
+            type_alumno,
             password,
         } = req.body;
 
@@ -42,7 +42,7 @@ class ControlRegistrarAlumno {
 
         datosAlumno.peso = parseFloat(datosAlumno.peso.replace(/[^0-9.]/g, ''));
         datosAlumno.estatura = parseFloat(datosAlumno.estatura.replace(/[^0-9.]/g, ''));
-        datosAlumno.estudiante = estudiante === 'si' ? 1 : 0;
+
 
 
         alumno.verificarNombreOEmail(nombre, email, (err, exists) => {
@@ -79,11 +79,23 @@ class ControlRegistrarAlumno {
                             console.error('Error al guardar alumno:', err);
                             return res.status(500).send('Error interno al guardar el alumno');
                         }
-    
-                        if (estudiante === "si") {
-                            return res.render("registroEstudiante", { email: datosAlumno.email });
-                        } else {
-                            return res.status(200).send('Alumno registrado correctamente');
+
+
+                        switch(type_alumno){
+                            case "estudiante":{
+                                return res.render("registroEstudiante", { email: datosAlumno.email });
+                                break;
+                            }
+                            case "profesionista":{
+                                return res.render("RegistroProfesionista", { email: datosAlumno.email });
+                                break;
+
+                            }
+
+                            case "ninguno":{
+                                return res.status(200).send('Alumno registrado correctamente');
+                                break;
+                            }
                         }
     
     
@@ -106,14 +118,12 @@ class ControlRegistrarAlumno {
 
 
     handleRegistrarEstudiante = (req, res) => {
+
+        // **Listo
         const {
             email,
             nivel_educativo,
-            grado_estudios,
             institucion,
-            carrera,
-            lugar_trabajo,
-            puesto,
         } = req.body;
 
         const datosEstudiante = req.body;
@@ -139,6 +149,39 @@ class ControlRegistrarAlumno {
                 }
 
                 res.status(200).send('Estudiante registrado correctamente');
+            });
+
+        });
+
+
+    };
+
+    handleRegistrarProfesionista = (req, res) => {
+
+        const datosProfesionista = req.body;
+
+        console.log(req.body);
+
+        alumno.obtenerIdPorEmail(datosProfesionista.email, (err, idAlumno) => {
+            if (err) {
+                console.error('Error al obtener el ID del alumno:', err);
+                return;
+            }
+
+            if (!idAlumno) {
+                console.log('No se encontró ningún alumno con ese email');
+                return;
+            }
+
+            datosProfesionista.id_alumno = idAlumno;
+            delete datosProfesionista.email;
+
+            alumno.guardarProfesionista(datosProfesionista, (err, result) => {
+                if (err) {
+                    console.error('Error al guardar el profesionista:', err);
+                    return res.status(500).json({ error: 'Error al guardar el profesionista' });
+                }
+                return res.status(200).json({ message: 'Profesionista guardado exitosamente', result });
             });
 
         });
