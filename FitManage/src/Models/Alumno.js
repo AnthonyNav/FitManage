@@ -384,8 +384,40 @@ class Alumno {
             callback(null, result); // Retorna el resultado de la consulta
         });
     }
-    
 
+    getAlumnosAgrupadosPorEdad(callback) {
+        const query = 'SELECT edad as label, COUNT(*) as total FROM alumnos GROUP BY edad';
+        db.query(query, (err, results) => {
+            if (err) {
+                console.error('Error al obtener información de la edad:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+
+    getAlumnosAgrupadosPorTipo(callback) {
+        const query = 'SELECT type_alumno as label, COUNT(*) as total FROM alumnos GROUP BY type_alumno';
+        db.query(query, (err, results) => {
+            if (err) {
+                console.error('Error al obtener información del tipo de alumno:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+
+    getTotalPaquetesAdquiridosDeAlumnos(callback) {
+        const query = 'SELECT paquetes.nombre as label, COUNT(*) as total FROM alumnos INNER JOIN paquetes_adquiridos ON paquetes_adquiridos.id_alumno = alumnos.id_alumno INNER JOIN paquetes ON paquetes.id_paquete = paquetes_adquiridos.id_paquete GROUP BY paquetes.nombre;';
+        db.query(query, (err, results) => {
+            if (err) {
+                console.error('Error al obtener información del tipo de alumno:', err);
+                return callback(err, null);
+            }
+            callback(null, results);
+        });
+    }
+    
 }
 
 

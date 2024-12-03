@@ -6,6 +6,7 @@ import ControlActualizarAlumno from "../Controllers/ControlActualizarAlumno.js";
 import ControlRegistrarPago from "../Controllers/ControlRegistrarPago.js";
 import ControlCrearClase from "../Controllers/ControlCrearClase.js";
 import ControlVerificarVigenciaPaquete from "../Controllers/ControlVerificarVigenciaPaquete.js"; 
+import ControlGraficasDeAlumnos from "../Controllers/ControlGraficasDeAlumnos.js";
 const router = Router();
 
 router.get('/', (req, res) => res.render("index"));
@@ -23,15 +24,25 @@ router.get("/registrar-profesor", (req, res) => ControlRegistrarProfesor.renderP
 router.get("/registrar-pago/", (req, res) => ControlRegistrarPago.handleObtenerAlumnos(req, res));
 router.post("/registrar-pago/pago", (req, res) => ControlRegistrarPago.handleRegistrarPago(req, res));
 router.post("/registrar-pago/", (req, res) => ControlRegistrarPago.handleObtenerPaquetes(req, res));
+router.get('/graficas-alumnos', (req, res) => ControlGraficasDeAlumnos.renderGraficoDefault(req, res)); 
+router.post('/graficas-alumnos', (req, res) => ControlGraficasDeAlumnos.obtenerDatos(req, res));
 
-router.get("/verificar-vigencia/", (req, res) => ControlVerificarVigenciaPaquete.handleObtenerVigencia(req, res));
+router.get("/verificar-vigencia/",
+    (req, res) => {
+        if (req.session.user && req.session.user.type_user == 'alumno') {
+            ControlVerificarVigenciaPaquete.handleObtenerVigencia(req, res);
+        } else {
+            res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
+        }
+    }
+);
 
 router.get('/administrador',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'administrador') {
             res.render("administrador", {message: ""});
         } else {
-            res.status(403).json({ error: "Acceso denegado. No tienes permisos para esta página." });
+            res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
         }
     }
 );
@@ -41,7 +52,7 @@ router.get('/profesor',
         if (req.session.user && req.session.user.type_user == 'profesor') {
             res.render("profesor");
         } else {
-            res.status(403).json({ error: "Acceso denegado. No tienes permisos para esta página." });
+            res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
         }
     }
 );

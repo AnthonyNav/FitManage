@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graficar Datos de Alumnos</title>
+    <link rel="stylesheet" href="/CSS/GenerarGraficas.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Graficar Datos de Alumnos</h1>
+        <% if (error) { %>
+        <p style="color: red;" class="footer"><%= error %></p>
+        <% } %>
+        <form id="chartForm" action="/graficas-alumnos" method="POST">
+            <label for="filter">Seleccionar tipo de gráfico:</label>
+            <select name="filter" id="filter">
+                <option value="age" <%= selectedFilter === 'age' ? 'selected' : '' %>>Por Edad</option>
+                <option value="type" <%= selectedFilter === 'type' ? 'selected' : '' %>>Por Tipo de Alumnos</option>
+                <!-- <option value="medical" <%= selectedFilter === 'medical' ? 'selected' : '' %>>Por Padecimiento</option> -->
+                <option value="package" <%= selectedFilter === 'package' ? 'selected' : '' %>>Por Paquete Popular</option>
+            </select>
+            <button type="submit">Graficar</button>
+        </form>
+        <div class="container_canvas"><canvas id="chart"></canvas></div>
+        <form action="/administrador" method="get">
+            <button type="submit" style="margin: 10px;">Regresar</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('chart');
+        const data = JSON.parse('<%- JSON.stringify(chartData) %>');
+
+        new Chart(ctx, {
+            type: data.type,
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: data.label,
+                    data: data.values,
+                    backgroundColor: data.colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                // Mostrar solo valores enteros
+                                if (Number.isInteger(value)) {
+                                    return value;
+                                }
+                                return null;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+        
