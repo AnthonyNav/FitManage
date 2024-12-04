@@ -47,6 +47,29 @@ class Profesor{
         });
     }
 
+    getProfesorIdPorEmail(email, callback) {
+        const query = `
+            SELECT id_profesor 
+            FROM profesor 
+            WHERE email = ?
+        `;
+    
+        db.query(query, [email], (err, rows) => {
+            if (err) {
+                return callback(err, null); // Retorna el error si ocurre
+            }
+    
+            // Verifica si encontró un registro y retorna el id_profesor
+            if (rows.length > 0) {
+                const idProfesor = rows[0].id_profesor;
+                callback(null, idProfesor); // Retorna el ID del profesor
+            } else {
+                callback(null, null); // Retorna null si no encuentra resultados
+            }
+        });
+    }
+    
+
 }
 
 export default new Profesor();

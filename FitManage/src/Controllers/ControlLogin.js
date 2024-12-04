@@ -44,7 +44,7 @@ class ControlLogin {
             case 'profesor':
                 return '/profesor';
             default:
-                return '/login'; // Ruta para roles desconocidos
+                return '/'; // Ruta para roles desconocidos
         }
     };
 }

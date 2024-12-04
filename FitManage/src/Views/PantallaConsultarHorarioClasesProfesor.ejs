@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesor Horario</title>
+    <link rel="stylesheet" href="/CSS/ReservarClase.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Horario</h1>
+        <p class="subtitle">Aqui se muestran tus clases</p>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Buscar disciplina..." class="search-bar">
+        </div>
+    </header>
+
+    <main class="class-container" id="class-container">
+        <% clases.forEach(clase => { %>
+        <div class="class-card" data-discipline="<%= clase.disciplina.toLowerCase() %>">
+            <div class="class-header">
+                <h2><%= clase.disciplina %></h2>
+                <span class="spots">Cupo: <%= clase.cupo %></span>
+            </div>
+            <p><strong>Profesor:</strong> <%= clase.profesor %></p>
+            <p><strong>Día:</strong> <%= clase.dia %></p>
+            <p><strong>Hora:</strong> <%= clase.hora %></p>
+        </div>
+        <% }) %>
+    </main>
+
+    <footer class="footer">
+        <p>FitManage © 2024 - Tu aliado para mantenerte en forma</p>
+    </footer>
+
+    <script>
+        // Script de búsqueda dinámica
+        const searchBar = document.getElementById('search-bar');
+        const classCards = document.querySelectorAll('.class-card');
+
+        searchBar.addEventListener('input', () => {
+            const searchText = searchBar.value.toLowerCase();
+
+            classCards.forEach(card => {
+                const discipline = card.getAttribute('data-discipline');
+                if (discipline.includes(searchText)) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.classList.remove('fade-in');
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Agregar animación inicial
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.class-card').forEach(card => {
+                card.classList.add('slide-in');
+            });
+        });
+    </script>
+</body>
+
+</html>

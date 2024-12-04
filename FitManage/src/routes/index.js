@@ -10,10 +10,18 @@ import ControlGraficasDeAlumnos from "../Controllers/ControlGraficasDeAlumnos.js
 import ControlNotificarProfesor from "../Controllers/ControlNotificarProfesor.js";
 import ControlActualizarEstatus from "../Controllers/ControlActualizarEstatus.js"
 import ControlReservarClase from "../Controllers/ControlReservarClase.js";
-
+import ControlConsultarHorarioClasesProfesor from "../Controllers/ControlConsultarHorarioClasesProfesor.js";
 const router = Router();
 
-router.get('/', (req, res) => res.render("index"));
+router.get('/', (req, res) => res.render("login", {error: ""}));
+router.post('/', (req, res) =>  ControlLogin.handleLogin(req, res));
+router.get('/administrador', (req, res) => res.render("PantallaPrincipalAdministrador"));
+router.get('/alumno', (req, res) => res.render("PantallaPrincipalAlumno"));
+router.get('/profesor', (req, res) => res.render("PantallaPrincipalProfesor"));
+
+
+
+
 
 router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
 
@@ -51,7 +59,7 @@ router.get("/verificar-vigencia/",
 router.get('/administrador',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'administrador') {
-            res.render("administrador", {message: ""});
+            res.render("PantallaPrincipalAdministrador", {message: ""});
         } else {
             res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
         }
@@ -61,7 +69,7 @@ router.get('/administrador',
 router.get('/profesor',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'profesor') {
-            res.render("profesor");
+            res.render("PantallaPrincipalProfesor");
         } else {
             res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
         }
@@ -71,17 +79,17 @@ router.get('/profesor',
 router.get('/alumno',
     (req, res) => {
         if (req.session.user && req.session.user.type_user == 'alumno') {
-            res.render("alumno", {message: ""});
+            res.render("PantallaPrincipalAlumno", {message: ""});
         } else {
-            res.status(403).json({ error: "Acceso denegado. No tienes permisos para esta página." });
+            res.render("login", { error: "Acceso denegado. No tienes permisos para esta página." });
         }
     }
 );
 
 
 
-router.get('/login', (req, res) => res.render("login", { error: "" }));
-router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
+//router.get('/', (req, res) => res.render("login", { error: "" }));
+//router.post('/', (req, res) => ControlLogin.handleLogin(req, res));
 
 router.post('/registrar-alumno', (req, res) => ControlRegistrarAlumno.handleRegistrarAlumno(req, res));
 router.post('/registrar-estudiante', (req, res) => ControlRegistrarAlumno.handleRegistrarEstudiante(req, res));
@@ -112,5 +120,8 @@ router.post('/actualizar-estatus-usuario', (req, res) => ControlActualizarEstatu
 
 router.get('/reservar-clase', (req, res) => ControlReservarClase.renderPantallaReservarClase(req, res));
 router.post('/reservar-clase', (req, res) => ControlReservarClase.handleReservarClase(req, res));
+
+
+router.get('/horario-profesor', (req, res) => ControlConsultarHorarioClasesProfesor.renderPantallaHorarioProfesor(req, res));
 
 export default router

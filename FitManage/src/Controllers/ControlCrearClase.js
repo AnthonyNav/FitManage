@@ -60,7 +60,7 @@ class ControlCrearClase {
                         return res.status(500).send("Error interno al guardar el horario.");
                     }
 
-                    res.status(200).send("Horario creado correctamente.");
+                    return res.redirect('/administrador');
                 });
             });
         } catch (error) {

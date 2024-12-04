@@ -138,6 +138,41 @@ class Horario {
             });
         });
     }
+
+    obtenerHorariosPorProfesor(id_profesor, callback) {
+        const query = `
+            SELECT 
+                d.nombre AS disciplina,
+                p.nombre AS profesor,
+                h.dia,
+                h.hora,
+                h.cupo,
+                h.nrc
+            FROM horario h
+            INNER JOIN disciplinas d ON h.id_disciplina = d.id_disciplina
+            INNER JOIN profesor p ON h.id_profesor = p.id_profesor
+            WHERE h.id_profesor = ?
+        `;
+    
+        db.query(query, [id_profesor], (err, results) => {
+            if (err) {
+                return callback(err, null);
+            }
+    
+            // Truncar los segundos de la hora
+            const horarios = results.map(row => ({
+                disciplina: row.disciplina,
+                profesor: row.profesor,
+                dia: row.dia,
+                hora: row.hora.slice(0, 5), // Solo hh:mm
+                cupo: row.cupo,
+                nrc: row.nrc
+            }));
+    
+            callback(null, horarios);
+        });
+    }
+    
     
     
     

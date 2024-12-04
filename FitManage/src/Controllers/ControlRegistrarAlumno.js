@@ -93,7 +93,7 @@ class ControlRegistrarAlumno {
                             }
 
                             case "ninguno":{
-                                return res.status(200).send('Alumno registrado correctamente');
+                                return res.redirect('/administrador');
                                 break;
                             }
                         }
@@ -148,11 +148,11 @@ class ControlRegistrarAlumno {
                     return res.status(500).send('Error interno al guardar los datos del estudiante');
                 }
 
-                res.status(200).send('Estudiante registrado correctamente');
+                return res.redirect('/administrador');
             });
 
         });
-
+        
 
     };
 
@@ -181,7 +181,7 @@ class ControlRegistrarAlumno {
                     console.error('Error al guardar el profesionista:', err);
                     return res.status(500).json({ error: 'Error al guardar el profesionista' });
                 }
-                return res.status(200).json({ message: 'Profesionista guardado exitosamente', result });
+                return res.redirect('/administrador');
             });
 
         });

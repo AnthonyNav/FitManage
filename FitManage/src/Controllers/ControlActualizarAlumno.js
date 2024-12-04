@@ -170,48 +170,14 @@ class ControlActualizarAlumno {
                                             return res.status(500).json({ error: 'Error al eliminar el profesionista' });
                                         }
                                 
-                                        return res.status(200).json({ message: 'Profesionista eliminado exitosamente' });
+                                        return res.redirect('/administrador');
+
                                     });
                                 });
 
                                 break;
                             }
                         }
-
-                        /* if(estudiante === 1){
-                            alumno.obtenerDatosEstudiantePorId(id_alumno, (err, datosEstudiante) => {
-                                if (err) {
-                                    console.error("Error al obtener los datos del estudiante:", err);
-                                    return;
-                                }
-                            
-                                if (!datosEstudiante) {
-                                    console.log("No se encontró información para el ID del alumno.");
-    
-                                    return res.render("registroEstudiante", { email: email });
-                                }
-                            
-                                // codigo
-                                return res.render("ActualizarEstudiante", { estudiante:  datosEstudiante});
-                            });
-                
-                
-                        }else{
-    
-                            alumno.eliminarEstudiantePorId(id_alumno, (err, result) => {
-                                if (err) {
-                                    console.error('Error al eliminar estudiante:', err);
-                                    return res.status(500).json({ error: 'Error al eliminar el estudiante.' });
-                                }
-                                if (result.affectedRows === 0) {
-                                    return res.status(200).json({ mensaje: 'Datos actualizados correctamente.' });
-                                }
-                                return res.status(200).json({ mensaje: 'Datos actualizados correctamente.' });
-                            });
-    
-    
-                            
-                        } */
 
 
                     });
@@ -263,7 +229,7 @@ class ControlActualizarAlumno {
                 console.error('Error al actualizar los datos del estudiante:', err);
                 return res.status(500).json({ error: 'Error al actualizar los datos del estudiante.' });
             }
-            res.status(200).json({ mensaje: 'Datos del estudiante actualizados correctamente.' });
+            return res.redirect('/administrador');
         });
 
     };
@@ -277,7 +243,7 @@ class ControlActualizarAlumno {
                 console.error('Error al actualizar los datos del profesionista:', err);
                 return res.status(500).json({ error: 'Error al actualizar los datos del profesionista.' });
             }
-            res.status(200).json({ mensaje: 'Datos del profesionista actualizados correctamente.' });
+            return res.redirect('/administrador');
         });
 
     };

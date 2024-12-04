@@ -8,7 +8,7 @@ class Users{
     buscarEmail(email, callback) {
         // Consulta para buscar el registro
         db.query(
-            `SELECT * FROM users WHERE email = ? AND email LIKE '%@gmail.com'`,
+            `SELECT * FROM users WHERE email = ?`,
             [email],
             (err, rows) => {
                 if (err) {
