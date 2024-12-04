@@ -195,27 +195,6 @@ body {
 
 
 /* Barra de búsqueda */
-/* .search-bar {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px;
-    margin: 20px auto;
-    border: 2px solid #00d4ff;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #0d1117;
-    outline: none;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.search-bar:focus {
-    border-color: #00a3cc;
-    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
-}
- */
-
-/* Barra de búsqueda */
 .search-bar {
     width: 100%;
     max-width: 500px;

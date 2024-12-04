@@ -9,6 +9,7 @@ import ControlVerificarVigenciaPaquete from "../Controllers/ControlVerificarVige
 import ControlGraficasDeAlumnos from "../Controllers/ControlGraficasDeAlumnos.js";
 import ControlNotificarProfesor from "../Controllers/ControlNotificarProfesor.js";
 import ControlActualizarEstatus from "../Controllers/ControlActualizarEstatus.js"
+import ControlReservarClase from "../Controllers/ControlReservarClase.js";
 
 const router = Router();
 
@@ -77,6 +78,8 @@ router.get('/alumno',
     }
 );
 
+
+
 router.get('/login', (req, res) => res.render("login", { error: "" }));
 router.post('/login', (req, res) => ControlLogin.handleLogin(req, res));
 
@@ -106,5 +109,8 @@ router.get('/actualizar-estatus-usuario', (req, res) => ControlActualizarEstatus
 
 router.post('/actualizar-estatus-usuario', (req, res) => ControlActualizarEstatus.handleActualizarEstatus(req, res));
 //??
+
+router.get('/reservar-clase', (req, res) => ControlReservarClase.renderPantallaReservarClase(req, res));
+router.post('/reservar-clase', (req, res) => ControlReservarClase.handleReservarClase(req, res));
 
 export default router

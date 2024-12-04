@@ -12,6 +12,45 @@ class ReservaClase {
             return callback(null, rows);
         });
     };
+
+    guardarReserva({ id_alumno, nrc, fecha_clase }, callback) {
+        const query = `
+            INSERT INTO reserva_clase (id_alumno, nrc, fecha_clase)
+            VALUES (?, ?, ?)
+        `;
+
+        db.query(query, [id_alumno, nrc, fecha_clase], (err, result) => {
+            if (err) {
+                console.error('Error al guardar la reserva:', err);
+                return callback(err, null); // Retorna el error a través del callback
+            }
+            console.log('Reserva guardada exitosamente:', result);
+            callback(null, result); // Retorna el resultado de la inserción
+        });
+    }
+
+    verificarReserva({ id_alumno, nrc, fecha_clase }, callback) {
+        const query = `
+            SELECT COUNT(*) AS count 
+            FROM reserva_clase 
+            WHERE id_alumno = ? 
+            AND nrc = ? 
+            AND fecha_clase = ?
+        `;
+
+        db.query(query, [id_alumno, nrc, fecha_clase], (err, result) => {
+            if (err) {
+                console.error('Error al verificar la reserva:', err);
+                return callback(err, null); // Retorna el error a través del callback
+            }
+            console.log(result);
+            // Si el count es mayor que 0, significa que ya existe una reserva con esos 3 campos
+            const existeReserva = result[0].count > 0;
+            console.log(`¿Existe reserva para el alumno con id ${id_alumno}, NRC ${nrc} y fecha ${fecha_clase}? ${existeReserva}`);
+            
+            callback(null, existeReserva); // Retorna si la reserva ya existe (true o false)
+        });
+    }
 }
 
 export default new ReservaClase();

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Clases</title>
+    <link rel="stylesheet" href="/CSS/ReservarClase.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Reservar Clases</h1>
+        <p class="subtitle">Encuentra y reserva la clase perfecta para ti</p>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Buscar disciplina..." class="search-bar">
+        </div>
+    </header>
+
+    <main class="class-container" id="class-container">
+        <% clases.forEach(clase => { %>
+        <% const puedeReservar = dias.includes(clase.dia.toLowerCase()); %>
+        <div class="class-card" data-discipline="<%= clase.disciplina.toLowerCase() %>">
+            <div class="class-header">
+                <h2><%= clase.disciplina %></h2>
+                <span class="spots">Cupo: <%= clase.cupo %></span>
+            </div>
+            <p><strong>Profesor:</strong> <%= clase.profesor %></p>
+            <p><strong>Día:</strong> <%= clase.dia %></p>
+            <p><strong>Hora:</strong> <%= clase.hora %></p>
+            <input type="hidden" name="nrc" value="<%= clase.nrc %>">
+            <button class="reserve-btn"
+                onclick="reservarClase('<%= clase.disciplina %>', '<%= clase.profesor %>', '<%= clase.dia %>', '<%= clase.hora %>', '<%= clase.cupo %>', '<%= clase.nrc %>')"
+                <%= !puedeReservar ? 'disabled' : '' %>>
+                Reservar
+            </button>
+        </div>
+        <% }) %>
+    </main>
+
+    <footer class="footer">
+        <p>FitManage © 2024 - Tu aliado para mantenerte en forma</p>
+    </footer>
+
+    <script>
+        // Script de búsqueda dinámica
+        const searchBar = document.getElementById('search-bar');
+        const classCards = document.querySelectorAll('.class-card');
+
+        searchBar.addEventListener('input', () => {
+            const searchText = searchBar.value.toLowerCase();
+
+            classCards.forEach(card => {
+                const discipline = card.getAttribute('data-discipline');
+                if (discipline.includes(searchText)) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.classList.remove('fade-in');
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Agregar animación inicial
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.class-card').forEach(card => {
+                card.classList.add('slide-in');
+            });
+        });
+
+        // Función para reservar clase
+        async function reservarClase(disciplina, profesor, dia, hora, cupo, nrc) {
+            const datosClase = { disciplina, profesor, dia, hora, cupo, nrc };
+        
+            try {
+                const response = await fetch('/reservar-clase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosClase)
+                });
+        
+                const responseData = await response.json(); // Captura el cuerpo de la respuesta
+        
+                if (response.ok) {
+                    console.log('Clase reservada:', responseData.message);
+        
+                    // Encuentra la tarjeta de la clase correspondiente
+                    classCards.forEach(card => {
+                        const cardDiscipline = card.querySelector('h2').textContent.trim().toLowerCase();
+                        if (cardDiscipline === disciplina.toLowerCase()) {
+                            const spotsElement = card.querySelector('.spots');
+                            let currentCupo = parseInt(spotsElement.textContent.match(/\d+/)[0], 10);
+        
+                            if (currentCupo > 0) {
+                                currentCupo--;
+                                spotsElement.textContent = `Cupo: ${currentCupo}`;
+                            }
+                        }
+                    });
+        
+                    // Mostrar mensaje al usuario
+                    alert(responseData.message);
+                } else {
+                    console.error('Error al reservar la clase:', responseData.message || 'Error desconocido');
+                    alert(responseData.message || 'Error al reservar la clase.');
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                alert('No se pudo conectar con el servidor.');
+            }
+        }
+        
+    </script>
+</body>
+
+</html>
