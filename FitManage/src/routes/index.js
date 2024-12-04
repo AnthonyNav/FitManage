@@ -7,6 +7,7 @@ import ControlRegistrarPago from "../Controllers/ControlRegistrarPago.js";
 import ControlCrearClase from "../Controllers/ControlCrearClase.js";
 import ControlVerificarVigenciaPaquete from "../Controllers/ControlVerificarVigenciaPaquete.js"; 
 import ControlGraficasDeAlumnos from "../Controllers/ControlGraficasDeAlumnos.js";
+import ControlNotificarProfesor from "../Controllers/ControlNotificarProfesor.js";
 const router = Router();
 
 router.get('/', (req, res) => res.render("index"));
@@ -26,6 +27,11 @@ router.post("/registrar-pago/pago", (req, res) => ControlRegistrarPago.handleReg
 router.post("/registrar-pago/", (req, res) => ControlRegistrarPago.handleObtenerPaquetes(req, res));
 router.get('/graficas-alumnos', (req, res) => ControlGraficasDeAlumnos.renderGraficoDefault(req, res)); 
 router.post('/graficas-alumnos', (req, res) => ControlGraficasDeAlumnos.obtenerDatos(req, res));
+router.get('/notificar-cumple', (req, res) => ControlNotificarProfesor.handleGetBirthdayStudents(req, res));
+router.post('/notificar-cumple', (req, res) => ControlNotificarProfesor.handleEditarMensaje(req, res));
+router.get('/notificar-cumple/mensaje', (req, res) => ControlNotificarProfesor.handleEditarMensaje(req, res));
+
+router.post('/notificar-cumple/mensaje', (req, res) => ControlNotificarProfesor.handleNotificarProfesor(req, res));
 
 router.get("/verificar-vigencia/",
     (req, res) => {

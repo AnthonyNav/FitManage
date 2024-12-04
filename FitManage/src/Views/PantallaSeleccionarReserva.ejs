@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Estudiantes</title>
+    <link rel="stylesheet" href="/CSS/NotificarCumple.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de cumpleañeros</h1>
+        <p style="color: red;" class="footer"><%= error %></p>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar estudiantes... (Por Nombre o Correo)">
+        </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alumnos</th>
+                        <th>Correo Alumno</th>
+                        <th>Disciplina</th>
+                        <th>Profesor</th>
+                        <th>Telefono Profesor</th>
+                        <th>Horario</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTable">
+                    <% students.forEach(student => { %>
+                        <tr class="row">
+                            <form method="POST" action="/notificar-cumple">
+                                <input type="hidden" name="nombre_alumno" value="<%= student.nombre_alumno%>">
+                                <input type="hidden" name="nombre_profesor" value="<%= student.nombre_profesor%>">
+                                <input type="hidden" name="telefono" value="<%= student.telefono_profesor %>">
+                                <input type="hidden" name="disciplina" value="<%= student.disciplina %>">
+                                <input type="hidden" name="horario" value="<%= student.horario_clase %>">
+
+                                <td><button type="submit" class="row-btn"><%= student.nombre_alumno%></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.email_alumno %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.disciplina %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.nombre_profesor%></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.telefono_profesor %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.horario_clase %></button></td>
+                            </form>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const tableRows = Array.from(document.querySelectorAll("#studentsTable tr"));
+
+        // Evento de búsqueda
+        searchInput.addEventListener("input", () => {
+            const filter = searchInput.value.toLowerCase();
+            tableRows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const email = row.cells[1].textContent.toLowerCase();
+                if (name.includes(filter) || email.includes(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

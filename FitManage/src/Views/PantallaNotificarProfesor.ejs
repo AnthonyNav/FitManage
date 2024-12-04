@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Mensaje</title>
+    <link rel="stylesheet" href="/CSS/NotificarProfesor.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mensaje de Recordatorio</h1>
+        <form action="/notificar-cumple/mensaje" method="post">
+            <input type="hidden" name="telefono_profesor" value="<%= telefono %>">
+            <div class="message-field">
+                <label for="message">Mensaje a enviar:</label>
+                <textarea id="message" name="message" ><%= text %></textarea>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn-submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

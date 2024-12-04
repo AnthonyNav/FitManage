@@ -69,8 +69,6 @@ class ControlCrearClase {
         }
     };
 
-
-
 }
 
 export default new ControlCrearClase();
