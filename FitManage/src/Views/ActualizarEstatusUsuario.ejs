@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios Registrados</title>
+    <link rel="stylesheet" href="/CSS/ActualizarEstatus.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">USUARIOS REGISTRADOS - ESTATUS</h1>
+
+        <!-- Barra de búsqueda -->
+        <input
+            type="text"
+            id="search-bar"
+            placeholder="Buscar usuarios..."
+            class="search-bar"
+        />
+
+        <div class="block-grid" id="user-list">
+            <% alumnos.forEach(alumno => { %>
+                <div class="block" data-name="<%= alumno.nombre.toLowerCase() %>">
+                    <input type="hidden" name="nombre" value="<%= alumno.nombre %>">
+                    <input type="hidden" name="type_user" value="<%= alumno.type_user %>">
+                    <button type="button" class="block-content">
+                        <h2 class="name"><%= alumno.nombre %></h2>
+                        <div class="info-container">
+                            <p class="status <%= alumno.estatus.toLowerCase() %>"><%= alumno.estatus %></p>
+                            <p class="type-user"><%= alumno.type_user.charAt(0).toUpperCase() + alumno.type_user.slice(1) %></p>
+                        </div>
+                    </button>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Botón flotante -->
+    <button class="floating-button">Guardar Cambios</button>
+
+    <script>
+        // Selecciona la barra de búsqueda y los bloques de usuarios
+        const searchBar = document.getElementById('search-bar');
+        const userBlocks = document.querySelectorAll('.block');
+
+        // Agrega un evento para filtrar dinámicamente
+        searchBar.addEventListener('input', () => {
+            const searchText = searchBar.value.toLowerCase();
+
+            userBlocks.forEach(block => {
+                const userName = block.dataset.name; // Obtiene el nombre en minúsculas
+
+                // Muestra u oculta según coincidencia
+                if (userName.includes(searchText)) {
+                    block.style.display = 'block';
+                } else {
+                    block.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Selecciona todos los botones de los usuarios
+        document.querySelectorAll('.block-content').forEach(button => {
+            button.addEventListener('click', () => {
+                const statusElement = button.querySelector('.status');
+                if (statusElement) {
+                    // Cambia el texto y la clase según el estado actual
+                    if (statusElement.textContent.trim() === "Activo") {
+                        statusElement.textContent = "Inactivo";
+                        statusElement.classList.remove('activo');
+                        statusElement.classList.add('inactivo');
+                    } else {
+                        statusElement.textContent = "Activo";
+                        statusElement.classList.remove('inactivo');
+                        statusElement.classList.add('activo');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelector('.floating-button').addEventListener('click', () => {
+            const userBlocks = document.querySelectorAll('.block');
+            const usuarios = [];
+    
+            userBlocks.forEach(block => {
+                const nombre = block.querySelector('input[name="nombre"]').value;
+                const type_user = block.querySelector('input[name="type_user"]').value;
+                const estatus = block.querySelector('.status').textContent.trim();
+    
+                usuarios.push({ nombre, type_user, estatus });
+            });
+    
+            // Enviar los datos al servidor
+            fetch('/actualizar-estatus-usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ usuarios }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json(); // Convierte la respuesta a JSON
+            })
+            .then(data => {
+                // Mostrar el mensaje recibido en la respuesta
+                alert(data.mensaje);
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos:', error);
+                alert('Ocurrió un error al guardar los cambios.');
+            });
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>

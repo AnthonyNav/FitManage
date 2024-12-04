@@ -1,0 +1,360 @@
+/* Reset general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo general del cuerpo */
+body {
+    background: #0d1117;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Título */
+.title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #00d4ff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Grid de bloques */
+.block-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Formularios individuales */
+.block {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+/* Botón que cubre el bloque completo */
+.block-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(145deg, #1e1e2a, #272736);
+    border: 1px solid #272736;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: inherit;
+    text-decoration: none;
+    border: none;
+    position: relative;
+}
+
+.block-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    /* Sin borde extra en hover */
+}
+
+/* Nombre del usuario */
+.name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+/* Contenedor para alinear estatus e info del usuario */
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    /* Alinea los elementos hacia los extremos */
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Estado */
+/* .status {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #a6a6a6;
+} */
+.status {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #a6a6a6;
+    position: relative;
+    /* Necesario para ajustes con top */
+    top: -10px;
+    /* Ajusta el valor negativo para subir más */
+    margin-left: -10px;
+}
+
+/* Estado Activo */
+.status.activo {
+    color: #00ffab;
+}
+
+/* Estado Inactivo */
+.status.inactivo {
+    color: #ff6b6b;
+}
+
+/* Tipo de usuario */
+.type-user {
+    font-size: 1rem;
+    background-color: #242731;
+    color: #00d4ff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-left: auto;
+    /* Alinea hacia la derecha dentro del contenedor */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efectos de hover */
+.block-content:hover .status {
+    color: #a349a4;
+}
+
+.block-content:hover .type-user {
+    background-color: #00d4ff;
+    color: #242731;
+}
+
+
+
+/* Botón al final */
+.bottom-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto 0;
+    /* Centrar el botón horizontalmente */
+    padding: 15px;
+    background-color: #00d4ff;
+    color: #0d1117;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.bottom-button:hover {
+    background-color: #00a3cc;
+    transform: scale(1.05);
+}
+
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00d4ff;
+    color: #0d1117;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.floating-button:hover {
+    transform: scale(1.1);
+    background-color: #00a3cc;
+}
+
+
+/* Barra de búsqueda */
+/* .search-bar {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 20px auto;
+    border: 2px solid #00d4ff;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #0d1117;
+    outline: none;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar:focus {
+    border-color: #00a3cc;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+ */
+
+/* Barra de búsqueda */
+.search-bar {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 40px;
+    /* Espacio para el ícono y texto */
+    margin: 20px auto;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(145deg, #1e293b, #3b4151);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.1);
+    outline: none;
+    position: relative;
+    transition: all 0.3s ease;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23ffffff" viewBox="0 0 24 24"%3E%3Cpath d="M15.707 14.293a8 8 0 1 0-1.414 1.414l5.385 5.385a1 1 0 0 0 1.414-1.414l-5.385-5.385ZM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12Z" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 20px;
+}
+
+.search-bar:focus {
+    box-shadow: 0 0 12px rgba(0, 163, 204, 0.6), inset 0 0 8px rgba(0, 163, 204, 0.4);
+    outline: none;
+    background: linear-gradient(145deg, #1c2833, #3e4a5b);
+}
+
+.search-bar::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Ícono flotante dentro del input */
+.search-bar::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23ffffff" viewBox="0 0 24 24"%3E%3Cpath d="M15.707 14.293a8 8 0 1 0-1.414 1.414l5.385 5.385a1 1 0 0 0 1.414-1.414l-5.385-5.385ZM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12Z" /%3E%3C/svg%3E') no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff, #f3f3f3); /* Fondo degradado */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: fadeIn 0.3s ease-in-out;
+    color: #333; /* Color de texto oscuro */
+    font-family: Arial, sans-serif;
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #444; /* Color de título */
+}
+
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    text-align: left;
+    color: #555; /* Color de texto para la lista */
+}
+
+.modal-content ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.close-button, .confirm-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.close-button {
+    background-color: #ccc;
+    color: #333;
+}
+
+.confirm-button {
+    background-color: #007a99;
+    color: #fff;
+}
+
+.close-button:hover {
+    background-color: #bbb;
+}
+
+.confirm-button:hover {
+    background-color: #005f73;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

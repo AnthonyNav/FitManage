@@ -8,9 +8,13 @@ import ControlCrearClase from "../Controllers/ControlCrearClase.js";
 import ControlVerificarVigenciaPaquete from "../Controllers/ControlVerificarVigenciaPaquete.js"; 
 import ControlGraficasDeAlumnos from "../Controllers/ControlGraficasDeAlumnos.js";
 import ControlNotificarProfesor from "../Controllers/ControlNotificarProfesor.js";
+import ControlActualizarEstatus from "../Controllers/ControlActualizarEstatus.js"
+
 const router = Router();
 
 router.get('/', (req, res) => res.render("index"));
+
+router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
 
 
 router.get('/registrar-alumno', (req, res) => res.render("PantallaRegistrarAlumno"));
@@ -93,5 +97,14 @@ router.post('/actualizar-profesionista', (req, res) => ControlActualizarAlumno.h
 router.get('/crear-clase', (req, res) => ControlCrearClase.renderPantallaCrearClase(req, res));
 router.post('/crear-clase', (req, res) => ControlCrearClase.handleCrearClase(req, res));
 
+
+
+//?? pruebas
+
+
+router.get('/actualizar-estatus-usuario', (req, res) => ControlActualizarEstatus.renderPantallaActualizarEstatus(req, res));
+
+router.post('/actualizar-estatus-usuario', (req, res) => ControlActualizarEstatus.handleActualizarEstatus(req, res));
+//??
 
 export default router

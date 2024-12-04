@@ -8,6 +8,7 @@ const app = express();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
 app.use(

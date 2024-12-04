@@ -15,6 +15,8 @@ class ControlActualizarAlumno {
             // Renderizar la vista con los datos obtenidos
             res.render('PantallaActualizarAlumno', { alumnos });
         });
+
+        
     };
 
     handleSeleccionarAlumno = (req, res) => {
