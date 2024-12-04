@@ -11,7 +11,7 @@
         <h1>Lista de Alumnos</h1>
         <p style="color: red;" class="footer"><%= error %></p>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar estudiantes... (Por Nombre)">
+            <input type="text" id="searchInput" placeholder="Buscar (Por nombre, correo o telefono)">
         </div>
             <table>
                 <thead>
@@ -19,7 +19,7 @@
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Telefono</th>
-                        <th>Estudiante</th>
+                        <th>Tipo de alumno</th>
                     </tr>
                 </thead>
                 <tbody id="studentsTable">
@@ -32,7 +32,7 @@
                                 <td><button type="submit" class="row-btn"><%= student.nombre + ' ' + student.apellidos%></button></td>
                                 <td><button type="submit" class="row-btn"><%= student.email %></button></td>
                                 <td><button type="submit" class="row-btn"><%= student.telefono %></button></td>
-                                <td><button type="submit" class="row-btn"><%= student.estudiante ? "Si" : "No" %></button></td>
+                                <td><button type="submit" class="row-btn"><%= student.type_alumno %></button></td>
                             </form>
                         </tr>
                     <% }) %>
@@ -48,9 +48,10 @@
         searchInput.addEventListener("input", () => {
             const filter = searchInput.value.toLowerCase();
             tableRows.forEach(row => {
-                const name = row.cells[1].textContent.toLowerCase();
-                const email = row.cells[2].textContent.toLowerCase();
-                if (name.includes(filter) || email.includes(filter)) {
+                const name = row.cells[0].textContent.toLowerCase();
+                const email = row.cells[1].textContent.toLowerCase();
+                const phone = row.cells[2].textContent.toLowerCase();
+                if (name.includes(filter) || email.includes(filter) || phone.includes(filter)){
                     row.style.display = "";
                 } else {
                     row.style.display = "none";
